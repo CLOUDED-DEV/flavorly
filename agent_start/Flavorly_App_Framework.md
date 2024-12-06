@@ -1,4 +1,3 @@
-
 # Flavorly App Framework
 
 ## General Questions
@@ -52,7 +51,10 @@
 
 ### 2. Dynamic Business Models
 
-- **Food Trucks**: Live location updates and schedule management.
+- **Food Trucks**: 
+  - Hybrid location tracking system combining device-based automatic updates with manual location input options
+  - Flexible schedule management
+  - Vendor control over tracking preferences
 - **Pop-Up Restaurants**: Temporary event support.
 - **Seasonal Businesses**: Flexible scheduling tools.
 - **Collaborative Events**: Multi-vendor order functionality.
@@ -75,7 +77,13 @@
 
 ### 2. Payments and Booking
 
-- **Payments**: Stripe Connect for vendor transactions. Explore integration with existing POS systems for customer payments.
+- **Payments**: 
+  - Stripe Connect for vendor transactions
+  - POS Integration Priority:
+    * Square - Primary solution for food trucks
+    * Toast - Full-service restaurant integration
+    * Clover - Small/medium business solution
+    * Stripe Terminal - Complementing Stripe Connect for in-person payments
 - **Booking Confirmation**: Build in-house for scalability and flexibility.
 
 ---
@@ -111,7 +119,10 @@
 
 ### 2. Content Creator Integrity
 
-- **Verification**: Use itemized receipts and promo code tracking.
+- **Verification**: 
+  - Mandatory verification process before program participation
+  - Use itemized receipts and promo code tracking
+  - Review of previous content and platform presence
 - **Transparency**: Paid reviews labeled; users can filter reviews by creator.
 - **Engagement-Based Payouts**: Creator earnings tied to metrics like bill size, visit duration, and post popularity.
 - **Fraud Prevention**: AI to flag anomalies in review or promo code usage.
@@ -161,5 +172,3 @@
 - Revisit the payout formula for refinement as the model evolves.
 - Wireframes for the "Reviews Hub" will be prioritized later in the design phase.
 - Content policies to be drafted during development to ensure authenticity and prevent fraud.
-
----

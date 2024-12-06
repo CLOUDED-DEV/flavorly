@@ -1,4 +1,3 @@
-
 # Flavorly Development Roadmap and MVP Rollout
 
 ## Overview
@@ -11,7 +10,7 @@ This document outlines the development roadmap for Flavorly, including detailed 
 
 ### **Alpha Phase (Core Foundation)**
 
-**Objective:** Validate basic functionality with a controlled group in Charlotte, NC.
+**Objective:** Validate basic functionality with a controlled group of 15-30 vendors in Charlotte, NC.
 
 **Key Features:**
 
@@ -26,14 +25,16 @@ This document outlines the development roadmap for Flavorly, including detailed 
    - View upcoming and past bookings.
 
 3. **Food Truck Tracking:**
-   - Live location updates for vendors.
+   - Hybrid tracking system combining device-based automatic updates with manual location input options
    - Interactive map for users to locate food trucks.
+   - Vendor control over tracking preferences.
 
 4. **Basic Search & Discovery:**
    - Filters: Proximity, cuisine, star rating.
-   - AI-driven recommendations: “You May Like” suggestions.
+   - AI-driven recommendations: "You May Like" suggestions.
 
 5. **Content Creator Pilot:**
+   - Mandatory verification process for creators before participation
    - Verified creators can post reviews with basic engagement tracking.
    - Engagement metrics: likes, shares, views.
 
@@ -49,6 +50,7 @@ This document outlines the development roadmap for Flavorly, including detailed 
 - APIs: Stripe, Google Maps/Mapbox.
 - Backend Infrastructure: Database for vendors, customers, bookings, and reviews.
 - Frontend Design: Lightweight UI for vendor and customer interfaces.
+- POS Integration: Initial focus on Square (food trucks), Toast (restaurants), Clover (small/medium businesses), and Stripe Terminal.
 
 ---
 
@@ -63,7 +65,7 @@ This document outlines the development roadmap for Flavorly, including detailed 
    - POS system integration for larger vendors.
 
 2. **Advanced Search:**
-   - Mood-based filters (e.g., “cozy date night”).
+   - Mood-based filters (e.g., "cozy date night").
    - Deals and promotions.
 
 3. **Reviews Hub Expansion:**
