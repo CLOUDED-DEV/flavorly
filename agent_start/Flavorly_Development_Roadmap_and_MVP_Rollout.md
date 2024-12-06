@@ -2,6 +2,7 @@
 # Flavorly Development Roadmap and MVP Rollout
 
 ## Overview
+
 This document outlines the development roadmap for Flavorly, including detailed phases for the Minimum Viable Product (MVP), requirements, and rollout strategy. The goal is to establish a structured plan for the Alpha, Beta, and Full Launch phases while ensuring scalability and alignment with Flavorly's core value propositions.
 
 ---
@@ -9,9 +10,11 @@ This document outlines the development roadmap for Flavorly, including detailed 
 ## MVP Roadmap
 
 ### **Alpha Phase (Core Foundation)**
+
 **Objective:** Validate basic functionality with a controlled group in Charlotte, NC.
 
 **Key Features:**
+
 1. **Vendor Onboarding:**
    - Registration with business details (logo, menu, hours).
    - Custom booking setup and menu uploads.
@@ -42,6 +45,7 @@ This document outlines the development roadmap for Flavorly, including detailed 
 **Timeline:** 3–6 months.
 
 **Dependencies:**
+
 - APIs: Stripe, Google Maps/Mapbox.
 - Backend Infrastructure: Database for vendors, customers, bookings, and reviews.
 - Frontend Design: Lightweight UI for vendor and customer interfaces.
@@ -49,9 +53,11 @@ This document outlines the development roadmap for Flavorly, including detailed 
 ---
 
 ### **Beta Phase (Enhanced Features)**
+
 **Objective:** Expand user base and refine features based on Alpha feedback.
 
 **Key Features:**
+
 1. **Enhanced Booking System:**
    - Waitlist functionality.
    - POS system integration for larger vendors.
@@ -71,15 +77,18 @@ This document outlines the development roadmap for Flavorly, including detailed 
 **Timeline:** 3–4 months (post-Alpha).
 
 **Dependencies:**
+
 - Additional APIs for POS integration.
 - Refinements from Alpha testing feedback.
 
 ---
 
 ### **Full Launch (Scalable Rollout)**
+
 **Objective:** Scale to additional cities and refine premium features.
 
 **Key Features:**
+
 1. **Premium Vendor Plans:**
    - Advanced analytics, customizable pages, marketing tools.
 
@@ -95,6 +104,7 @@ This document outlines the development roadmap for Flavorly, including detailed 
 **Timeline:** 6–12 months (post-Beta).
 
 **Dependencies:**
+
 - Scalability: Infrastructure upgrades for national rollout.
 - Marketing: National campaigns and major city onboarding.
 
@@ -103,17 +113,21 @@ This document outlines the development roadmap for Flavorly, including detailed 
 ## Development Plan
 
 ### **Backend Development**
+
 - APIs: Payment processing (Stripe), location tracking (Google Maps/Mapbox), search and recommendation systems.
 - Database: Scalable backend for vendor/customer data and bookings.
 
 ### **Frontend Development**
+
 - Vendor and customer interfaces.
 - Content Creator Hub integration.
 
 ### **Testing & Feedback**
+
 - Regular sprints with Alpha/Beta users.
 
 ### **Marketing Alignment**
+
 - Vendor onboarding and early user acquisition campaigns.
 
 ---
@@ -121,14 +135,17 @@ This document outlines the development roadmap for Flavorly, including detailed 
 ## Updates and Additions
 
 ### **Consumer Waitlist**
+
 - **Mobile-First Implementation:** The waitlist will be prioritized for the mobile app, with a website version as a secondary priority.
 - **Inclusion of Content Creator Model Messaging:** During onboarding, users can indicate interest in becoming food content creators and earn rewards.
 
 ### **Tagline and Branding**
+
 - Proposed tagline: **"Discover Local Flavors, Effortlessly."**
 - Color schemes and branding reflect the Earth-Tone and Bright Serenity palettes with integration of the Flavorly logo.
 
 ### **Vendor Outreach Strategy**
+
 - Plan for a vendor-specific waitlist with exclusive offers for early adopters.
 - Outreach campaigns highlighting cost advantages and first-mover benefits.
 - Prepare tutorials and demos for vendor onboarding.
@@ -136,8 +153,8 @@ This document outlines the development roadmap for Flavorly, including detailed 
 ---
 
 ## Immediate Next Steps
+
 1. Finalize wireframes for vendor onboarding and customer booking.
 2. Set up backend APIs for registration, booking, and location updates.
 3. Launch the mobile-first consumer waitlist with integrated content creator options.
 4. Develop marketing materials for vendor outreach campaigns in Charlotte, NC.
-
