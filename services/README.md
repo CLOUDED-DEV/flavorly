@@ -9,13 +9,16 @@ This directory contains the microservices that power the Flavorly platform. Each
 ## Important Update: Migration to Supabase Edge Functions
 
 After evaluation, we've decided to migrate our services to Supabase Edge Functions for:
+
 1. Cost efficiency (500,000 invocations free per month)
 2. Simplified deployment and maintenance
 3. Automatic scaling
 4. Better integration with Supabase infrastructure
 
 ### Migration Plan
+
 Current services will be converted to Edge Functions following this structure:
+
 ```
 /supabase/functions/
 ├── waitlist-signup/
@@ -27,12 +30,14 @@ Current services will be converted to Edge Functions following this structure:
 ```
 
 ### Key Changes
+
 - Runtime: Moving from Node.js to Deno
 - Structure: Single-file functions vs multi-file services
 - Dependencies: URL imports vs npm packages
 - Deployment: Supabase CLI vs traditional deployment
 
 ### Preserved Features
+
 - All validation schemas
 - Error handling patterns
 - TypeScript types
