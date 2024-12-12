@@ -4,6 +4,7 @@
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
+import {config} from "https://deno.land/x/dotenv/mod.ts"
 
 interface SignupRequest {
   name: string
@@ -13,14 +14,13 @@ interface SignupRequest {
 }
 
 // Get environment variables
-const supabaseUrl = Deno.env.get('SUPABASE_URL')
-const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')
+const supabaseUrl = Deno.env.get('LOCAL_SUPABASE_DB_URL')
+const supabaseAnonKey = Deno.env.get('LOCAL_SUPABASE_ANON_KEY')
 
 // Log environment status (but not the actual values)
 console.log('Environment Check:')
-console.log('SUPABASE_URL exists:', !!supabaseUrl)
-console.log('SUPABASE_ANON_KEY exists:', !!supabaseAnonKey)
-console.log('SUPABASE_URL prefix:', supabaseUrl?.substring(0, 10) + '...')
+console.log('SUPABASE_URL exists:', supabaseUrl)
+console.log('SUPABASE_ANON_KEY exists:', supabaseAnonKey)
 
 Deno.serve(async (req) => {
   try {
@@ -96,9 +96,7 @@ Deno.serve(async (req) => {
     console.log('Verifying database connection...')
     const { data: testData, error: testError } = await supabaseClient
       .from('users')
-      .select('count')
-      .limit(1)
-      .single()
+      .select('*')
 
     if (testError) {
       console.error('Database connection test failed:', {

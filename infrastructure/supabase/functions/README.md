@@ -5,6 +5,7 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
 ## Current Progress (December 11, 2024)
 
 ### Achievements
+
 1. Set up basic Edge Functions structure
 2. Created initial waitlist-signup function with:
    - Input validation
@@ -17,6 +18,7 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
 5. Successfully verified table existence in psql
 
 ### Current Issues
+
 1. Database Connection Issue:
    - Edge Function cannot find the users table ("relation 'public.users' does not exist")
    - Table is visible and accessible via psql
@@ -33,6 +35,7 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
    - Environment variables are being detected but might not be connecting to correct instance
 
 ### Recent Changes
+
 1. Enhanced Error Logging:
    - Added detailed error object logging
    - Added environment variable verification
@@ -70,10 +73,13 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
 ## Functions Overview
 
 ### 1. waitlist-signup
+
 Handles new user signups for the waitlist.
+
 - **Endpoint**: `/waitlist-signup`
 - **Method**: POST
 - **Request Body**:
+
   ```typescript
   {
     name: string
@@ -86,12 +92,15 @@ Handles new user signups for the waitlist.
 ## Local Development
 
 ### Prerequisites
+
 1. Install Supabase CLI:
+
    ```bash
    npm install -g supabase
    ```
 
 2. Login to Supabase:
+
    ```bash
    supabase login
    ```
@@ -99,25 +108,30 @@ Handles new user signups for the waitlist.
 ### Running Locally
 
 1. Start the Supabase services:
+
    ```bash
    supabase start
    ```
 
 2. Get your project keys:
+
    ```bash
    supabase status
    ```
+
    This will show your anon key and service role key.
 
-3. In a new terminal, serve the Edge Functions with environment variables:
+3. The edge functions env variables are stored in the .env file within the functions folder.  This is standard practice for supabase:
+
    ```bash
    SUPABASE_URL=your_project_url SUPABASE_ANON_KEY=your_anon_key supabase functions serve
    ```
 
-4. Test the function:
+4. Test the function locally:
+
    ```bash
    curl -i --location --request POST 'http://localhost:54321/functions/v1/waitlist-signup' \
-     --header 'Authorization: Bearer your-anon-key-here' \
+     --header 'Authorization: Bearer <enter-anon-token>' \ 
      --header 'Content-Type: application/json' \
      --data '{
        "name": "Test User",
@@ -137,11 +151,13 @@ Handles new user signups for the waitlist.
 ## Deployment
 
 Deploy all functions to production:
+
 ```bash
 supabase functions deploy
 ```
 
 Or deploy a specific function:
+
 ```bash
 supabase functions deploy waitlist-signup
 ```
@@ -149,12 +165,14 @@ supabase functions deploy waitlist-signup
 ## Troubleshooting
 
 ### Function Not Found
+
 1. Ensure you've started Supabase services
 2. Ensure you're running the functions server
 3. Check function directory name matches endpoint
 4. Verify port number (default: 54321)
 
 ### Database Connection Issues
+
 1. Verify table exists: `\dt public.users` in psql
 2. Check permissions: `\d+ public.users` in psql
 3. Verify environment variables are correct
@@ -162,6 +180,7 @@ supabase functions deploy waitlist-signup
 5. Try both anon key and service role key
 
 ### Authentication Failed
+
 1. Get fresh keys using `supabase status`
 2. Use correct key format in Authorization header
 3. Verify permissions are properly set
