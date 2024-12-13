@@ -14,13 +14,13 @@ interface SignupRequest {
 }
 
 // Get environment variables
-const supabaseUrl = Deno.env.get('LOCAL_SUPABASE_DB_URL')
-const supabaseAnonKey = Deno.env.get('LOCAL_SUPABASE_ANON_KEY')
+const supabaseUrl = Deno.env.get('SUPABASE_URL')
+const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')
 
-// Log environment status (but not the actual values)
-console.log('Environment Check:')
-console.log('SUPABASE_URL exists:', supabaseUrl)
-console.log('SUPABASE_ANON_KEY exists:', supabaseAnonKey)
+// // Log environment status and values for local testing (uncomment for local testing)
+// console.log('Environment Check:')
+// console.log('SUPABASE_URL exists:', supabaseUrl)
+// console.log('SUPABASE_ANON_KEY exists:', supabaseAnonKey)
 
 Deno.serve(async (req) => {
   try {
@@ -46,16 +46,16 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Check for required environment variables
-    if (!supabaseUrl || !supabaseAnonKey) {
-      throw new Error('Missing required environment variables')
-    }
+    // // Check for required environment variables (uncomment for local testing)
+    // if (!supabaseUrl || !supabaseAnonKey) {
+    //   throw new Error('Missing required environment variables')
+    // }
 
     // Parse request body
     const body: SignupRequest = await req.json()
-    console.log('Request body:', body)
+    // console.log('Request body:', body) (uncomment for local testing)
 
-    // Validate required fields
+    // Validate required fields (name and email)
     if (!body.name || !body.name.trim()) {
       return new Response(
         JSON.stringify({ error: 'Name is required' }),
@@ -140,7 +140,6 @@ Deno.serve(async (req) => {
           hint: error.hint,
           message: error.message
         })
-        throw error
       }
 
       console.log('Insert successful:', data)

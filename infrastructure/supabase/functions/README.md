@@ -141,6 +141,18 @@ Handles new user signups for the waitlist.
      }'
    ```
 
+5. Test the function in prod:
+
+   ```bash
+   curl -L -X POST 'https://kkenewikugbzhbeeubcm.supabase.co/functions/v1/waitlist-signup' -H 'Authorization: Bearer <insert-anon-key>'      
+   --data '{
+         "name": "Test User",
+         "email": "test2@example.com",
+         "preferences": ["Italian", "Food Trucks"],
+         "creator_interest": false
+      }'
+   ```
+
 ### Development Workflow
 
 1. Make changes to your function code
