@@ -5,6 +5,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
 import {config} from "https://deno.land/x/dotenv/mod.ts"
+import {sendConfirmationEmail} from "../email-verify/index.ts"
 
 interface SignupRequest {
   name: string
@@ -124,57 +125,25 @@ Deno.serve(async (req) => {
     console.log('Attempting to insert user data:', userData)
 
     // Insert into users table
-    try {
-      const { data, error } = await supabaseClient
-        .from('users')
-        .insert([userData])
-        .select()
-        .single()
+    const { data, error } = await supabaseClient
+      .from('users')
+      .insert([userData])
+      .select()
+      .single()
 
-      if (error) {
-        console.error('Insert error details:', {
-          error: error,
-          status: error.status,
-          statusText: error.statusText,
-          details: error.details,
-          hint: error.hint,
-          message: error.message
-        })
-      }
-
-      console.log('Insert successful:', data)
-
-      // Return success response
-      return new Response(
-        JSON.stringify({
-          message: 'Successfully joined waitlist',
-          data: {
-            name: data.name,
-            email: data.email,
-            creator_interest: data.creator_interest,
-            signup_date: data.signup_date
-          }
-        }),
-        { 
-          status: 201,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-
-    } catch (dbError: any) {
-      // Handle database errors
-      console.error('Database operation error details:', {
-        error: dbError,
-        code: dbError.code,
-        status: dbError.status,
-        statusText: dbError.statusText,
-        details: dbError.details,
-        hint: dbError.hint,
-        message: dbError.message
+    if (error) {
+      console.error('Insert error details:', {
+        error: error,
+        code: error.code,
+        status: error.status,
+        statusText: error.statusText,
+        details: error.details,
+        hint: error.hint,
+        message: error.message
       })
 
-      // Check for specific error types
-      if (dbError.code === '23505') {
+      // Check for duplicate email error
+      if (error.code === '23505') {
         return new Response(
           JSON.stringify({ error: 'Email already registered' }),
           { 
@@ -184,8 +153,32 @@ Deno.serve(async (req) => {
         )
       }
 
-      throw new Error(`Database operation failed: ${dbError.message || 'Unknown error'}`)
+      // Handle other database errors
+      throw new Error(`Database operation failed: ${error.message || 'Unknown error'}`)
     }
+
+    console.log('Insert successful:', data)
+
+    // Insert email verification logic here.
+    
+
+
+    // Return success response
+    return new Response(
+      JSON.stringify({
+        message: 'Successfully joined waitlist',
+        data: {
+          name: data.name,
+          email: data.email,
+          creator_interest: data.creator_interest,
+          signup_date: data.signup_date
+        }
+      }),
+      { 
+        status: 201,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      }
+    )
 
   } catch (error: any) {
     // Log unexpected errors with full details
