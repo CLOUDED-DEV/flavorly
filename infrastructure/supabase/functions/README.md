@@ -349,6 +349,6 @@ supabase functions deploy business-signup
 1. ✅ Resolve database connection issue (Completed)
 2. ✅ Implement email verification function (Completed)
 3. ✅ Split waitlist system for foodies and businesses (Completed)
-4. Implement referral tracking function
+4. Implement client-side integration
 5. Set up monitoring and logging
-6. Implement client-side integration
+6. Implement referral tracking function
