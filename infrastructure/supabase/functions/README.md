@@ -2,7 +2,7 @@
 
 This directory contains the Edge Functions that power Flavorly's waitlist system. These functions are designed to run on Supabase's Edge Functions platform, providing serverless functionality for waitlist management.
 
-## Current Progress (December 11, 2024)
+## Current Progress (December 13, 2024)
 
 ### Achievements
 
@@ -16,23 +16,30 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
 3. Created SQL schema for users table
 4. Implemented database permissions for different roles (anon, authenticated, dashboard_user)
 5. Successfully verified table existence in psql
+6. Successfully implemented and tested waitlist-signup API:
+   - Database connection issues resolved
+   - Successful user insertion verified
+   - Error handling tested and working
+   - CORS functionality confirmed
+   - Input validation working as expected
+7. ✅ Successfully implemented email verification:
+   - Integrated Resend.com for email delivery
+   - Created HTML email template with Flavorly branding
+   - Implemented error handling and logging
+   - Integrated with waitlist-signup function
+   - Tested and verified email delivery
 
-### Current Issues
+### Previous Issues (Now Resolved)
 
 1. Database Connection Issue:
-   - Edge Function cannot find the users table ("relation 'public.users' does not exist")
-   - Table is visible and accessible via psql
-   - Attempted solutions:
-     - Using service role key instead of anon key
-     - Adding explicit schema reference
-     - Verifying environment variables
-     - Adding additional error logging
-     - Granting permissions to anon role
+   - ✅ Edge Function can now successfully connect to users table
+   - ✅ Database operations working as expected
+   - ✅ Permissions properly configured
 
 2. Environment Configuration:
-   - Local development environment might be using different database context
-   - Need to verify correct URL and key usage
-   - Environment variables are being detected but might not be connecting to correct instance
+   - ✅ Local development environment properly configured
+   - ✅ Environment variables correctly detected and working
+   - ✅ Database connection successful in both local and production environments
 
 ### Recent Changes
 
@@ -43,32 +50,38 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
    - Added more context to error messages
 
 2. Authentication Updates:
-   - Tried both anon key and service role key
-   - Added explicit schema reference in queries
-   - Updated permissions for the users table
+   - Successfully implemented authentication flow
+   - Verified permissions for the users table
+   - Confirmed proper key usage
 
 3. Documentation:
    - Added detailed local development instructions
    - Added troubleshooting section
    - Updated environment variable handling instructions
 
+4. Email Integration:
+   - Implemented email verification function
+   - Created branded HTML email template
+   - Integrated with waitlist signup flow
+   - Added comprehensive error handling
+   - Configured Resend.com integration
+
 ## Next Steps
 
-1. Database Connection:
-   - Verify database schema and table structure via psql
-   - Double-check all permissions
-   - Verify connection string format
-   - Test with different authentication methods
+1. ✅ Email Verification:
+   - ✅ Design and implement email verification flow
+   - ✅ Create email templates
+   - ✅ Set up email service integration
 
-2. Local Development:
-   - Verify local development environment setup
-   - Ensure correct database instance is being accessed
-   - Test connection with minimal query
+2. Referral System:
+   - Design referral tracking schema
+   - Implement referral code generation
+   - Create referral tracking endpoints
 
-3. Documentation:
-   - Document all attempted solutions
-   - Add detailed troubleshooting guide
-   - Update environment setup instructions
+3. Monitoring:
+   - Set up error tracking
+   - Implement usage analytics
+   - Create monitoring dashboard
 
 ## Functions Overview
 
@@ -88,6 +101,58 @@ Handles new user signups for the waitlist.
     creator_interest: boolean
   }
   ```
+
+- **Response**:
+  - Success (201):
+
+    ```typescript
+    {
+      message: string
+      data: {
+        name: string
+        email: string
+        creator_interest: boolean
+        signup_date: string
+      }
+    }
+    ```
+
+  - Error (400/500):
+
+    ```typescript
+    {
+      error: string
+      details?: string
+    }
+    ```
+
+### 2. email-verify
+
+Handles sending confirmation emails to new waitlist signups.
+
+- **Function**: `sendConfirmationEmail`
+- **Input**:
+  ```typescript
+  {
+    email: string
+    name?: string
+  }
+  ```
+- **Response**:
+  - Success (201):
+    ```typescript
+    {
+      message: "Email sent successfully"
+      data: ResendAPIResponse
+    }
+    ```
+  - Error (400/500):
+    ```typescript
+    {
+      error: string
+      details?: string
+    }
+    ```
 
 ## Local Development
 
@@ -121,21 +186,21 @@ Handles new user signups for the waitlist.
 
    This will show your anon key and service role key.
 
-3. The edge functions env variables are stored in the .env file within the functions folder.  This is standard practice for supabase:
+3. The edge functions env variables are stored in the .env file within the functions folder. This is standard practice for supabase:
 
    ```bash
-   SUPABASE_URL=your_project_url SUPABASE_ANON_KEY=your_anon_key supabase functions serve
+   SUPABASE_URL=your_project_url SUPABASE_ANON_KEY=your_anon_key RESEND_API_KEY=your_resend_key supabase functions serve
    ```
 
 4. Test the function locally:
 
    ```bash
-   curl -i --location --request POST 'http://localhost:54321/functions/v1/waitlist-signup' \
-     --header 'Authorization: Bearer <enter-anon-token>' \ 
-     --header 'Content-Type: application/json' \
+   curl -L -X POST 'http://localhost:54321/functions/v1/waitlist-signup' \
+     -H 'Authorization: Bearer <insert-bearer-token>' \ 
+     -H 'Content-Type: application/json' \
      --data '{
-       "name": "Test User",
-       "email": "test@example.com",
+       "name": "Trey User",
+       "email": "treyoung12@yahoo.com",
        "preferences": ["Italian", "Food Trucks"],
        "creator_interest": false
      }'
@@ -144,13 +209,15 @@ Handles new user signups for the waitlist.
 5. Test the function in prod:
 
    ```bash
-   curl -L -X POST 'https://kkenewikugbzhbeeubcm.supabase.co/functions/v1/waitlist-signup' -H 'Authorization: Bearer <insert-anon-key>'      
+   curl -L -X POST 'https://kkenewikugbzhbeeubcm.supabase.co/functions/v1/waitlist-signup' \
+   -H 'Authorization: Bearer <insert-bearer-token> \
+   -H 'Content-Type: application/json' \
    --data '{
-         "name": "Test User",
-         "email": "test2@example.com",
-         "preferences": ["Italian", "Food Trucks"],
-         "creator_interest": false
-      }'
+      "name": "Test User",
+      "email": "test2@example.com",
+      "preferences": ["Italian", "Food Trucks"],
+      "creator_interest": false
+   }'
    ```
 
 ### Development Workflow
@@ -197,10 +264,17 @@ supabase functions deploy waitlist-signup
 2. Use correct key format in Authorization header
 3. Verify permissions are properly set
 
+### Email Sending Issues
+
+1. Verify RESEND_API_KEY is set in environment
+2. Check email format is valid
+3. Verify FROM_EMAIL is properly configured
+4. Check Resend.com dashboard for delivery status
+
 ## Next Steps
 
-1. Resolve database connection issue
-2. Implement email verification function
+1. ✅ Resolve database connection issue (Completed)
+2. ✅ Implement email verification function (Completed)
 3. Implement referral tracking function
 4. Set up monitoring and logging
 5. Implement client-side integration
