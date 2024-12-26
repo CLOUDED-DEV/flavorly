@@ -227,7 +227,7 @@ This document outlines the process for designing and developing the **Waitlist a
   - Updated email templates for both flows
   - Tested all functionality in local and production
 
-### 2024-12-18 
+### 2024-12-18
 
 - ✅ Completed email verification implementation
   - Created email verification edge function

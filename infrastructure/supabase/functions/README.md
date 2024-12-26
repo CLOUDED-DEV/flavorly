@@ -194,21 +194,26 @@ Handles sending confirmation emails to new waitlist signups.
 
 - **Function**: `sendConfirmationEmail`
 - **Input**:
+
   ```typescript
   {
     email: string
     name?: string
   }
   ```
+
 - **Response**:
   - Success (201):
+
     ```typescript
     {
       message: "Email sent successfully"
       data: ResendAPIResponse
     }
     ```
+
   - Error (400/500):
+
     ```typescript
     {
       error: string
