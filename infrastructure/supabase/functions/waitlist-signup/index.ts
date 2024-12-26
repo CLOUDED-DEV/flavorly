@@ -159,9 +159,17 @@ Deno.serve(async (req) => {
 
     console.log('Insert successful:', data)
 
-    // Insert email verification logic here.
-    
+    // Send confirmation email
+    const emailResponse = await sendConfirmationEmail({ 
+      email: userData.email,
+      name: userData.name
+    });
 
+    // Check if email sending failed
+    if (emailResponse.status !== 201) {
+      console.error('Failed to send confirmation email:', await emailResponse.json());
+      // Continue with success response but log the email failure
+    }
 
     // Return success response
     return new Response(
