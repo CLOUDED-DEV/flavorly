@@ -21,7 +21,7 @@ interface EmailData {
   name?: string;
 }
 
-export async function sendConfirmationEmail({ email, name }: EmailData): Promise<Response> {
+export async function sendConfirmationEmail({ email }: EmailData): Promise<Response> {
   try {
     // Prepare email content
     const htmlContent = `
@@ -34,7 +34,7 @@ export async function sendConfirmationEmail({ email, name }: EmailData): Promise
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
           <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
             <h1 style="color: #fe7f2d;">Welcome to Flavorly! 🎉</h1>
-            <p>Hi ${name || 'there'},</p>
+            <p>Hi there'},</p>
             <p>Thank you for joining the Flavorly waitlist! We're excited to have you on board.</p>
             <p>Flavorly is a modern dining platform designed to connect you with unique local experiences, from restaurants and food trucks to private chefs and pop-up events.</p>
             <h2 style="color: #619b8a;">What's Next?</h2>

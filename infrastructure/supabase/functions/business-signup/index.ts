@@ -7,25 +7,17 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
 import {config} from "https://deno.land/x/dotenv/mod.ts"
 import {sendConfirmationEmail} from "../email-verify/index.ts"
 
-interface SocialMediaHandle {
-  platform: 'X' | 'Instagram' | 'TikTok'
-  handle: string
-}
-
-interface SignupRequest {
+interface BusinessSignupRequest {
   email: string
-  creator_interest: boolean
-  social_media?: SocialMediaHandle[]
+  business_name: string
+  business_type: 'Restaurant' | 'Food Truck' | 'Private Chef' | 'Pop-up'
+  city: string
+  pos_system?: 'Square' | 'Toast' | 'Clover' | 'Other'
 }
 
 // Get environment variables
 const supabaseUrl = Deno.env.get('SUPABASE_URL')
 const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')
-
-// // Log environment status and values for local testing (uncomment for local testing)
-// console.log('Environment Check:')
-// console.log('SUPABASE_URL exists:', supabaseUrl)
-// console.log('SUPABASE_ANON_KEY exists:', supabaseAnonKey)
 
 Deno.serve(async (req) => {
   try {
@@ -51,19 +43,43 @@ Deno.serve(async (req) => {
       )
     }
 
-    // // Check for required environment variables (uncomment for local testing)
-    // if (!supabaseUrl || !supabaseAnonKey) {
-    //   throw new Error('Missing required environment variables')
-    // }
-
     // Parse request body
-    const body: SignupRequest = await req.json()
-        // console.log('Request body:', body) (uncomment for local testing)
+    const body: BusinessSignupRequest = await req.json()
 
-    // Validate email
-    if (!body.email || !body.email.trim()) {
+    // Validate required fields
+    if (!body.email?.trim()) {
       return new Response(
         JSON.stringify({ error: 'Email is required' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      )
+    }
+
+    if (!body.business_name?.trim()) {
+      return new Response(
+        JSON.stringify({ error: 'Business name is required' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      )
+    }
+
+    if (!body.business_type) {
+      return new Response(
+        JSON.stringify({ error: 'Business type is required' }),
+        { 
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      )
+    }
+
+    if (!body.city?.trim()) {
+      return new Response(
+        JSON.stringify({ error: 'City is required' }),
         { 
           status: 400,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -83,44 +99,36 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Validate social media handles if creator_interest is true
-    if (body.creator_interest && (!body.social_media || body.social_media.length === 0)) {
-      return new Response(
-        JSON.stringify({ error: 'Social media handles are required for content creators' }),
-        { 
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-    }
-
     // Create Supabase client
     console.log('Creating Supabase client...')
     const supabaseClient = createClient(supabaseUrl, supabaseAnonKey)
 
-    // Start a transaction
-    const { data: foodie, error: foodieError } = await supabaseClient
-      .from('foodies')
+    // Insert business data
+    const { data: business, error: businessError } = await supabaseClient
+      .from('businesses')
       .insert([{
         email: body.email.toLowerCase().trim(),
-        creator_interest: !!body.creator_interest,
+        business_name: body.business_name.trim(),
+        business_type: body.business_type,
+        city: body.city.trim(),
+        pos_system: body.pos_system
       }])
       .select()
       .single()
 
-    if (foodieError) {
+    if (businessError) {
       console.error('Insert error details:', {
-        error: foodieError,
-        code: foodieError.code,
-        status: foodieError.status,
-        statusText: foodieError.statusText,
-        details: foodieError.details,
-        hint: foodieError.hint,
-        message: foodieError.message
+        error: businessError,
+        code: businessError.code,
+        status: businessError.status,
+        statusText: businessError.statusText,
+        details: businessError.details,
+        hint: businessError.hint,
+        message: businessError.message
       })
 
       // Check for duplicate email error
-      if (foodieError.code === '23505') {
+      if (businessError.code === '23505') {
         return new Response(
           JSON.stringify({ error: 'Email already registered' }),
           { 
@@ -131,30 +139,13 @@ Deno.serve(async (req) => {
       }
 
       // Handle other database errors
-      throw new Error(`Database operation failed: ${foodieError.message || 'Unknown error'}`)
-    }
-
-    // If creator_interest is true, insert social media handles
-    if (body.creator_interest && body.social_media && body.social_media.length > 0) {
-      const socialMediaData = body.social_media.map(handle => ({
-        foodie_id: foodie.id,
-        platform: handle.platform,
-        handle: handle.handle
-      }))
-
-      const { error: socialError } = await supabaseClient
-        .from('social_media_handles')
-        .insert(socialMediaData)
-
-      if (socialError) {
-        console.error('Social media insert error:', socialError)
-        // Continue with success response but log the social media insert failure
-      }
+      throw new Error(`Database operation failed: ${businessError.message || 'Unknown error'}`)
     }
 
     // Send confirmation email
     const emailResponse = await sendConfirmationEmail({ 
-      email: foodie.email
+      email: business.email,
+      name: business.business_name // Include business name in email
     });
 
     // Check if email sending failed
@@ -168,9 +159,12 @@ Deno.serve(async (req) => {
       JSON.stringify({
         message: 'Successfully joined waitlist',
         data: {
-          email: foodie.email,
-          creator_interest: foodie.creator_interest,
-          signup_date: foodie.signup_date
+          email: business.email,
+          business_name: business.business_name,
+          business_type: business.business_type,
+          city: business.city,
+          pos_system: business.pos_system,
+          signup_date: business.signup_date
         }
       }),
       { 
@@ -210,18 +204,15 @@ Deno.serve(async (req) => {
 
   3. Make an HTTP request using your anon key as the Bearer token:
 
-  curl -i --location --request POST 'http://localhost:54321/functions/v1/waitlist-signup' \
+  curl -i --location --request POST 'http://localhost:54321/functions/v1/business-signup' \
     --header 'Authorization: Bearer your-anon-key-here' \
     --header 'Content-Type: application/json' \
     --data '{
-      "email": "test@example.com",
-      "creator_interest": true,
-      "social_media": [
-        {
-          "platform": "Instagram",
-          "handle": "foodie_test"
-        }
-      ]
+      "email": "business@example.com",
+      "business_name": "Food Truck Example",
+      "business_type": "Food Truck",
+      "city": "Charlotte",
+      "pos_system": "Square"
     }'
 
 */
