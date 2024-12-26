@@ -28,6 +28,12 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
    - Implemented error handling and logging
    - Integrated with waitlist-signup function
    - Tested and verified email delivery
+8. ✅ Implemented separate foodie and business waitlist systems:
+   - Created separate tables for foodies and businesses
+   - Updated waitlist-signup for foodie-specific flow
+   - Created new business-signup endpoint
+   - Added social media handling for content creators
+   - Maintained email verification for both flows
 
 ### Previous Issues (Now Resolved)
 
@@ -66,6 +72,12 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
    - Added comprehensive error handling
    - Configured Resend.com integration
 
+5. Waitlist System Updates:
+   - Split user types into separate tables (foodies and businesses)
+   - Updated schema to support content creators
+   - Added business-specific fields and validation
+   - Maintained separate endpoints for each user type
+
 ## Next Steps
 
 1. ✅ Email Verification:
@@ -73,12 +85,17 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
    - ✅ Create email templates
    - ✅ Set up email service integration
 
-2. Referral System:
+2. ✅ Waitlist System Enhancement:
+   - ✅ Separate foodie and business flows
+   - ✅ Support content creator social media
+   - ✅ Add business-specific fields
+
+3. Referral System:
    - Design referral tracking schema
    - Implement referral code generation
    - Create referral tracking endpoints
 
-3. Monitoring:
+4. Monitoring:
    - Set up error tracking
    - Implement usage analytics
    - Create monitoring dashboard
@@ -87,7 +104,7 @@ This directory contains the Edge Functions that power Flavorly's waitlist system
 
 ### 1. waitlist-signup
 
-Handles new user signups for the waitlist.
+Handles foodie signups for the waitlist.
 
 - **Endpoint**: `/waitlist-signup`
 - **Method**: POST
@@ -95,10 +112,12 @@ Handles new user signups for the waitlist.
 
   ```typescript
   {
-    name: string
     email: string
-    preferences?: string[]
     creator_interest: boolean
+    social_media?: Array<{
+      platform: 'X' | 'Instagram' | 'TikTok'
+      handle: string
+    }>
   }
   ```
 
@@ -109,7 +128,6 @@ Handles new user signups for the waitlist.
     {
       message: string
       data: {
-        name: string
         email: string
         creator_interest: boolean
         signup_date: string
@@ -126,27 +144,76 @@ Handles new user signups for the waitlist.
     }
     ```
 
-### 2. email-verify
+### 2. business-signup
+
+Handles business signups for the waitlist.
+
+- **Endpoint**: `/business-signup`
+- **Method**: POST
+- **Request Body**:
+
+  ```typescript
+  {
+    email: string
+    business_name: string
+    business_type: 'Restaurant' | 'Food Truck' | 'Private Chef' | 'Pop-up'
+    city: string
+    pos_system?: 'Square' | 'Toast' | 'Clover' | 'Other'
+  }
+  ```
+
+- **Response**:
+  - Success (201):
+
+    ```typescript
+    {
+      message: string
+      data: {
+        email: string
+        business_name: string
+        business_type: string
+        city: string
+        pos_system?: string
+        signup_date: string
+      }
+    }
+    ```
+
+  - Error (400/500):
+
+    ```typescript
+    {
+      error: string
+      details?: string
+    }
+    ```
+
+### 3. email-verify
 
 Handles sending confirmation emails to new waitlist signups.
 
 - **Function**: `sendConfirmationEmail`
 - **Input**:
+
   ```typescript
   {
     email: string
     name?: string
   }
   ```
+
 - **Response**:
   - Success (201):
+
     ```typescript
     {
       message: "Email sent successfully"
       data: ResendAPIResponse
     }
     ```
+
   - Error (400/500):
+
     ```typescript
     {
       error: string
@@ -192,32 +259,37 @@ Handles sending confirmation emails to new waitlist signups.
    SUPABASE_URL=your_project_url SUPABASE_ANON_KEY=your_anon_key RESEND_API_KEY=your_resend_key supabase functions serve
    ```
 
-4. Test the function locally:
+4. Test the foodie signup locally:
 
    ```bash
    curl -L -X POST 'http://localhost:54321/functions/v1/waitlist-signup' \
      -H 'Authorization: Bearer <insert-bearer-token>' \ 
      -H 'Content-Type: application/json' \
      --data '{
-       "name": "Trey User",
-       "email": "treyoung12@yahoo.com",
-       "preferences": ["Italian", "Food Trucks"],
-       "creator_interest": false
+       "email": "foodie@example.com",
+       "creator_interest": true,
+       "social_media": [
+         {
+           "platform": "Instagram",
+           "handle": "foodie_test"
+         }
+       ]
      }'
    ```
 
-5. Test the function in prod:
+5. Test the business signup locally:
 
    ```bash
-   curl -L -X POST 'https://kkenewikugbzhbeeubcm.supabase.co/functions/v1/waitlist-signup' \
-   -H 'Authorization: Bearer <insert-bearer-token> \
-   -H 'Content-Type: application/json' \
-   --data '{
-      "name": "Test User",
-      "email": "test2@example.com",
-      "preferences": ["Italian", "Food Trucks"],
-      "creator_interest": false
-   }'
+   curl -L -X POST 'http://localhost:54321/functions/v1/business-signup' \
+     -H 'Authorization: Bearer <insert-bearer-token>' \ 
+     -H 'Content-Type: application/json' \
+     --data '{
+       "email": "business@example.com",
+       "business_name": "Food Truck Example",
+       "business_type": "Food Truck",
+       "city": "Charlotte",
+       "pos_system": "Square"
+     }'
    ```
 
 ### Development Workflow
@@ -239,6 +311,7 @@ Or deploy a specific function:
 
 ```bash
 supabase functions deploy waitlist-signup
+supabase functions deploy business-signup
 ```
 
 ## Troubleshooting
@@ -252,8 +325,8 @@ supabase functions deploy waitlist-signup
 
 ### Database Connection Issues
 
-1. Verify table exists: `\dt public.users` in psql
-2. Check permissions: `\d+ public.users` in psql
+1. Verify tables exist: `\dt public.foodies` and `\dt public.businesses` in psql
+2. Check permissions: `\d+ public.foodies` and `\d+ public.businesses` in psql
 3. Verify environment variables are correct
 4. Check database URL format
 5. Try both anon key and service role key
@@ -275,6 +348,7 @@ supabase functions deploy waitlist-signup
 
 1. ✅ Resolve database connection issue (Completed)
 2. ✅ Implement email verification function (Completed)
-3. Implement referral tracking function
-4. Set up monitoring and logging
-5. Implement client-side integration
+3. ✅ Split waitlist system for foodies and businesses (Completed)
+4. Implement referral tracking function
+5. Set up monitoring and logging
+6. Implement client-side integration

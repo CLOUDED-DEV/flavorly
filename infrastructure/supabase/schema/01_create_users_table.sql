@@ -23,3 +23,5 @@ COMMENT ON COLUMN users.signup_date IS 'Timestamp when user signed up for waitli
 -- Create indexes for performance optimization
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_creator_interest ON users(creator_interest);
+
+-- SCHEMA HAS BEEN DEPRECATED, PLEASE REFER TO 03 AND 04 FOR WAITLIST SCHEMAS --
