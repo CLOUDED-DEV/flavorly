@@ -352,3 +352,4 @@ supabase functions deploy business-signup
 4. Implement client-side integration
 5. Set up monitoring and logging
 6. Implement referral tracking function
+7. Commit
