@@ -1,8 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import * as SplashScreen from "expo-splash-screen";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { useEffect } from "react";
+import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
+import WaitlistJoinScreen from "./screens/WaitlistJoinScreen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -11,7 +13,8 @@ export default function App() {
     "sofia-sans": require("./assets/fonts/SofiaSans-Regular.ttf"),
     "sofia-sans-bold": require("./assets/fonts/SofiaSans-Bold.ttf"),
   });
-
+  
+// making sure the fonts load
   useEffect(() => {
     if (fontsLoaded || error) {
       SplashScreen.hideAsync();
@@ -22,11 +25,10 @@ export default function App() {
     return null;
   }
 
+  let screen = <WaitlistJoinScreen/>
+
   return (
-    <View style={styles.container}>
-      <Text style={{fontFamily: "sofia-sans"}}>This text is using 'Sofia Sans'!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
   );
 }
 
