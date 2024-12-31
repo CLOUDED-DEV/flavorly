@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Asset } from "expo-asset";
@@ -10,34 +10,41 @@ import WaitlistJoinScreen from "./screens/WaitlistJoinScreen";
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [assetsLoaded, setAssetsLoaded] = useState(false); // state for all page assets to load
+
+  const [fontsLoaded] = useFonts({
+    "sofiasans-black": require("./assets/fonts/SofiaSans-Black.ttf"),
+    "BlackHanSans-Regular": require("./assets/fonts/BlackHanSans-Regular.ttf"),
+  });
+
+  // preload images
   useEffect(() => {
     const prepare = async () => {
       try {
-        //preload assets
-        await Asset.loadAsync([
-          require("./assets/flavorly_logo.png"),
-          require("./assets/fonts/SofiaSans-Black.ttf"),
-          require("./assets/fonts/BlackHanSans-Regular.ttf"),
-        ]);
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        // hide splash
-        await SplashScreen.hideAsync();
+        await Asset.loadAsync([require("./assets/flavorly_logo.png")]);
+        await new Promise((resolve) => setTimeout(resolve, 500)); // set a timer to see splash
+        setAssetsLoaded(true); // set asset state to true
+      } catch (error) {
+        console.warn("Error loading assets: ", error);
       }
     };
 
     prepare();
   }, []);
-  const [fontsLoaded, error] = useFonts({
-    "sofiasans-black": require("./assets/fonts/SofiaSans-Black.ttf"),
-    "BlackHanSans-Regular": require("./assets/fonts/BlackHanSans-Regular.ttf"),
-  });
 
-  // making sure the fonts load
-  if (!fontsLoaded || error) {
-    return console.log(error);
+  // hide splash when everything has loaded
+  useEffect(() => {
+    const hideSplash = async () => {
+      if (fontsLoaded && assetsLoaded) {
+        await SplashScreen.hideAsync();
+      }
+    };
+    hideSplash();
+  }, [fontsLoaded, assetsLoaded]);
+
+  // fallback if fonts or assets dont load
+  if (!fontsLoaded || !assetsLoaded) {
+    return null;
   }
 
   let screen = <WaitlistJoinScreen />;
@@ -49,19 +56,5 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     backgroundColor: "#F0ECD9",
-  },
-  logoWrapper: {
-    borderWidth: "2",
-    alignItems: "center",
-    padding: 20,
-  },
-  logo: {
-    height: 125,
-    width: 150,
-    marginTop: 40,
-    borderWidth: "2",
-    borderColor: "red",
-    resizeMode: "cover",
-    position: "absolute",
   },
 });

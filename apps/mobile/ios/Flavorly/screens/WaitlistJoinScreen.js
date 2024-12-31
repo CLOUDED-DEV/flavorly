@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   logo: {
     height: 125,
     width: 150,
-    // borderWidth: "2",
+    borderWidth: "2",
     resizeMode: "cover",
   },
   title: {
