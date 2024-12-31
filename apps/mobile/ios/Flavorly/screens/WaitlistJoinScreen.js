@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   titleLine: {
-    width: width * 0.8,
+    width: width * 0.9,
     alignItems: 'center',
     justifyContent: 'center',
   },
