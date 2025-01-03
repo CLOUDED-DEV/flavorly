@@ -15,6 +15,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     "sofiasans-black": require("./assets/fonts/SofiaSans-Black.ttf"),
     "BlackHanSans-Regular": require("./assets/fonts/BlackHanSans-Regular.ttf"),
+    "sofiasans-regular": require("./assets/fonts/SofiaSans-Regular.ttf")
   });
 
   // preload images
