@@ -19,23 +19,26 @@ export default function WaitlistJoinScreen() {
         />
       </View>
       <View style={styles.title}>
-        <View style={styles.titleLine}>
+        <View style={styles.titleWrapper}>
           <Text 
-            style={styles.darkBrownColor}
+            style={styles.titleWordStyling}
             adjustsFontSizeToFit 
             numberOfLines={1}
           >
             Discover A World of <Text style={styles.blueColor}>Flavor</Text>
           </Text>
         </View>
-        <View style={styles.titleLine}>
+        <View style={styles.titleWrapper}>
           <Text 
-            style={styles.darkBrownColor}
+            style={styles.titleWordStyling}
             adjustsFontSizeToFit 
             numberOfLines={1}
           >
             Made for <Text style={styles.blueColor}>You</Text>
           </Text>
+        </View>
+        <View style={styles.subtextWrapper}>
+          <Text style={styles.subtextStyling}> We're thrilled to welcome you to our growing platform!{"\n"}Here's what awaits you:</Text>
         </View>
       </View>
       <StatusBar style="auto" />
@@ -62,12 +65,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: '100%',
   },
-  titleLine: {
+  titleWrapper: {
     width: width * 0.9,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  darkBrownColor: {
+  subtextWrapper:{
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  titleWordStyling: {
     color: "#1A1110",
     fontSize: 26,
     fontFamily: "BlackHanSans-Regular",
@@ -76,6 +83,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowColor: "black",
     shadowOpacity: 0.35
+  },
+  subtextStyling: {
+    color: "#1A1110",
+    textAlign: "center",
+    fontFamily: "sofiasans-regular",
+    marginTop: 30
   },
   blueColor: {
     color: "#43B3AE",
