@@ -6,8 +6,8 @@ import { Asset } from "expo-asset";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import WaitlistJoinScreen from "../flavorly/screens/WaitlistJoinScreen";
-import WaitlistSelectScreen from "../flavorly/screens/WaitlistSelectScreen";
+import WaitlistJoinScreen from "./screens/WaitlistJoinScreen";
+import WaitlistSelectScreen from "./screens/WaitlistSelectScreen";
 
 const Stack = createNativeStackNavigator();
 
