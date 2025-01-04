@@ -45,8 +45,10 @@ This directory contains the React Native/Expo implementation of Flavorly's mobil
 
 1. App Navigation:
    - Root container setup in App.js with SafeAreaView
-   - Initial routing to WaitlistJoinScreen
-   - Splash screen with asset preloading
+   - React Navigation implementation with Stack Navigator
+   - Navigation between WaitlistJoin and WaitlistSelect screens
+   - Splash screen with asset preloading and 1s delay
+   - Proper font and asset loading management
 
 2. WaitlistJoinScreen:
    - Logo component with optimized placement and sizing
@@ -75,9 +77,11 @@ This directory contains the React Native/Expo implementation of Flavorly's mobil
    - Loading states for API interactions
 
 2. Additional Screens (Upcoming):
-   - WaitlistSelectScreen implementation
+   - WaitlistSelectScreen implementation with toggle design:
+     * Toggle between Foodie and Business roles
+     * Dynamic content based on selection
+     * Consistent styling with main screen
    - Additional waitlist flow screens
-   - User type selection (Foodie/Business)
    - Form screens for data collection
 
 ## Component Structure
@@ -191,7 +195,7 @@ This directory contains the React Native/Expo implementation of Flavorly's mobil
 
 ## Changelog
 
-### December 31st, 2024
+### January 4th, 2025
 
 - Initial project setup completed
 - WaitlistJoinScreen basic implementation
@@ -200,6 +204,8 @@ This directory contains the React Native/Expo implementation of Flavorly's mobil
 - Created reusable WaitlistContainer component
 - Implemented all three feature highlight sections
 - Created and implemented CTAButton component
+- Set up React Navigation with proper screen management
+- Implemented navigation between screens
 
 ## Resources
 
