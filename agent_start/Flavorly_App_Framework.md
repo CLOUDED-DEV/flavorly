@@ -134,17 +134,12 @@
 
 ---
 
-## Base Color Palettes
-
-1. **Earth-Tone Palette**: Charcoal (#233d4d), Pumpkin (#fe7f2d), Sunglow (#fcca46), Olivine (#a1c181), Zomp (#619b8a).
-2. **Vintage Earth Palette**: Licorice (#1c110a), Vanilla (#e4d6a7), Hunyadi Yellow (#e9b44c), Rufous (#9b2915), Verdigris (#50a2a7).
-3. **Cool Elegance Palette**: Red (Pantone) (#e63946), Honeydew (#f1faee), Non Photo Blue (#a8dadc), Cerulean (#457b9d), Berkeley Blue (#1d3557).
-4. **Bright Serenity Palette**: Moonstone (#0fa3b1), Uranian Blue (#b5e2fa), Baby Powder (#f9f7f3), Vanilla (#eddea4), Atomic Tangerine (#f7a072).
+## Base Color Palette
+  **Vintage Earth Palette**: #1A1110, #E4D6A7, #E9B44C, #9B2915, #43B3AE, #f6f3e7
 
 **Notes**:
 
-- The Earth-Tone Palette and Bright Serenity Palette can be combined for the app's wireframes and visual themes.
-- The palettes will evolve based on testing and branding refinement.
+- The palette will evolve based on testing and branding refinement.
 
 ---
 
