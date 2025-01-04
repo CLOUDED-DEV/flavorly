@@ -3,8 +3,13 @@ import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Asset } from "expo-asset";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import WaitlistJoinScreen from "./screens/WaitlistJoinScreen";
+import WaitlistJoinScreen from "../flavorly/screens/WaitlistJoinScreen";
+import WaitlistSelectScreen from "../flavorly/screens/WaitlistSelectScreen";
+
+const Stack = createNativeStackNavigator();
 
 // prevent the splash screen from hiding automatically
 SplashScreen.preventAutoHideAsync();
@@ -23,7 +28,7 @@ export default function App() {
     const prepare = async () => {
       try {
         await Asset.loadAsync([require("./assets/flavorly_logo.png")]);
-        await new Promise((resolve) => setTimeout(resolve, 500)); // set a timer to see splash
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // set a timer to see splash
         setAssetsLoaded(true); // set asset state to true
       } catch (error) {
         console.warn("Error loading assets: ", error);
@@ -48,9 +53,27 @@ export default function App() {
     return null;
   }
 
-  let screen = <WaitlistJoinScreen />;
-
-  return <SafeAreaView style={styles.rootContainer}>{screen}</SafeAreaView>;
+  return (
+    <NavigationContainer>
+      <SafeAreaView style={styles.rootContainer}>
+        <Stack.Navigator 
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#f6f3e7' }
+          }}
+        >
+          <Stack.Screen 
+            name="WaitlistJoin" 
+            component={WaitlistJoinScreen} 
+          />
+          <Stack.Screen 
+            name="WaitlistSelect" 
+            component={WaitlistSelectScreen} 
+          />
+        </Stack.Navigator>
+      </SafeAreaView>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({

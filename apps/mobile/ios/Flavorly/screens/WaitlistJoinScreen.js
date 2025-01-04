@@ -7,10 +7,10 @@ import {
   useEffect,
 } from "react-native";
 import { StatusBar } from "react-native";
-import WaitlistContainer from "../components/waitlist/waitlistContainer";
+import WaitlistContainer from "../components/ui/waitlistContainer";
 import CTAButton from "../components/ui/CTAButton";
 const { width } = Dimensions.get("window");
-export default function WaitlistJoinScreen() {
+export default function WaitlistJoinScreen({ navigation }) {
   return (
     <View style={styles.screen}>
       <View style={styles.logoWrapper}>
@@ -76,7 +76,7 @@ export default function WaitlistJoinScreen() {
       <View style={styles.buttonContainer}>
         <CTAButton 
           title="Join the Waitlist!" 
-          onPress={() => console.log('Navigate to selection screen')}
+          onPress={() => navigation.navigate('WaitlistSelect')}
         />
       </View>
     </View>
