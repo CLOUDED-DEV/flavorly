@@ -21,14 +21,19 @@ export default function WaitlistSelectScreen({ navigation }) {
 
   const handlePress = (cardIndex) => {
     setSelectedCard(cardIndex);
-    console.log("Card number ", cardIndex, "is selected.");
   };
 
   const handleContinue = () => {
-    Alert.alert(
-      "Selection required",
-      "Please select an option before continuing."
-    );
+    if (selectedCard === 1){
+      navigation.navigate("FoodieSignupScreen")
+    } else if (selectedCard === 2){
+      navigation.navigate("BusinessSignupScreen")
+    }else{
+      Alert.alert(
+        "Selection required",
+        "Please select an option before continuing."
+      );
+    }
   };
 
   return (

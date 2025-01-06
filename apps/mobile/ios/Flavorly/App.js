@@ -8,6 +8,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import WaitlistJoinScreen from "./screens/WaitlistJoinScreen";
 import WaitlistSelectScreen from "./screens/WaitlistSelectScreen";
+import FoodieSignupScreen from "./screens/FoodieSignupScreen";
+import BusinessSignupScreen from "./screens/BusinessSignupScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,10 +65,9 @@ export default function App() {
           }}
         >
           <Stack.Screen name="WaitlistJoin" component={WaitlistJoinScreen} />
-          <Stack.Screen
-            name="WaitlistSelect"
-            component={WaitlistSelectScreen}
-          />
+          <Stack.Screen name="WaitlistSelect" component={WaitlistSelectScreen}/>
+          <Stack.Screen name="FoodieSignupScreen" component={FoodieSignupScreen}/>
+          <Stack.Screen name="BusinessSignupScreen" component={BusinessSignupScreen}/>
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
