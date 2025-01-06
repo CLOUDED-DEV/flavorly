@@ -156,9 +156,9 @@ Handles business signups for the waitlist.
   {
     email: string
     business_name: string
-    business_type: 'Restaurant' | 'Food Truck' | 'Private Chef' | 'Pop-up'
+    business_type: 'Restaurant' /* Food Truck, Private Chef, Pop-up to be added in future phases */
     city: string
-    pos_system?: 'Square' | 'Toast' | 'Clover' | 'Other'
+    pos_system?: 'Toast' | 'Clover' | 'Other' /* Square to be added in food truck phase */
   }
   ```
 
@@ -285,10 +285,10 @@ Handles sending confirmation emails to new waitlist signups.
      -H 'Content-Type: application/json' \
      --data '{
        "email": "business@example.com",
-       "business_name": "Food Truck Example",
-       "business_type": "Food Truck",
+       "business_name": "Local Restaurant Example",
+       "business_type": "Restaurant",
        "city": "Charlotte",
-       "pos_system": "Square"
+       "pos_system": "Toast"
      }'
    ```
 

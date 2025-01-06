@@ -1,8 +1,8 @@
 # Flavorly User Personas
 
-## Vendor Personas
+## Current MVP Personas
 
-### 1. Sarah - Local Restaurant Owner
+### 1. Sarah - Small Restaurant Owner
 
 **Demographics:**
 
@@ -24,51 +24,7 @@
 - Time-consuming administrative tasks
 - Need for direct customer engagement
 
-### 2. Marco - Food Truck Entrepreneur
-
-**Demographics:**
-
-- Age: 29
-- Role: Mobile Food Business Owner
-- Tech-Savviness: 5/10
-
-**Key Characteristics:**
-
-- Requires flexible booking system
-- Needs location tracking
-- Limited marketing budget
-- Dynamic business model
-
-**Pain Points:**
-
-- Inconsistent customer discovery
-- Complex booking platforms
-- Difficulty maintaining customer base
-- Need for real-time location updates
-
-### 3. Trey - Private Chef
-
-**Demographics:**
-
-- Age: 35
-- Role: Private Dining and Catering Chef
-- Tech-Savviness: 4/10
-
-**Key Characteristics:**
-
-- Professionally trained
-- Seeks professional reputation building
-- Needs streamlined business operations
-- Focuses on high-end culinary experiences
-
-**Pain Points:**
-
-- Fragmented booking systems
-- Difficult payment collection
-- Limited marketing channels
-- Lack of comprehensive portfolio management
-
-### 4. Joan - Established Restaurant Owner
+### 2. Joan - Established Restaurant Owner
 
 **Demographics:**
 
@@ -90,7 +46,53 @@
 - Generic marketing tools
 - Need for more control over reservation experience
 
-## Customer Personas
+## Future Vendor Personas (Beta/Full Launch)
+
+### 1. Marco - Food Truck Entrepreneur (Beta Phase)
+
+**Demographics:**
+
+- Age: 29
+- Role: Mobile Food Business Owner
+- Tech-Savviness: 5/10
+
+**Key Characteristics:**
+
+- Requires flexible booking system
+- Needs location tracking
+- Limited marketing budget
+- Dynamic business model
+
+**Pain Points:**
+
+- Inconsistent customer discovery
+- Complex booking platforms
+- Difficulty maintaining customer base
+- Need for real-time location updates
+
+### 2. Trey - Private Chef (Full Launch)
+
+**Demographics:**
+
+- Age: 35
+- Role: Private Dining and Catering Chef
+- Tech-Savviness: 4/10
+
+**Key Characteristics:**
+
+- Professionally trained
+- Seeks professional reputation building
+- Needs streamlined business operations
+- Focuses on high-end culinary experiences
+
+**Pain Points:**
+
+- Fragmented booking systems
+- Difficult payment collection
+- Limited marketing channels
+- Lack of comprehensive portfolio management
+
+## Current Customer Personas
 
 ### 1. Emily - Young Professional
 
@@ -104,16 +106,16 @@
 
 - Frequent mobile app user
 - Values convenience
-- Follows food trends
-- Seeks unique dining experiences
+- Enjoys local dining
+- Seeks quality restaurant experiences
 
 **Pain Points:**
 
-- Limited discovery of unique restaurants
+- Limited discovery of local restaurants
 - Desire for seamless booking
 - Wants personalized recommendations
 
-### 2. David - Foodie Enthusiast
+### 2. David - Restaurant Enthusiast
 
 **Demographics:**
 
@@ -123,26 +125,26 @@
 
 **Key Characteristics:**
 
-- Passionate about culinary experiences
-- Uses multiple platforms
+- Passionate about dining experiences
+- Uses multiple booking platforms
 - Values detailed restaurant information
-- Seeks diverse dining options
+- Seeks quality dining options
 
 **Pain Points:**
 
 - Incomplete restaurant details
-- Difficulty comparing dining options
+- Difficulty comparing restaurants
 - Wants comprehensive menu information
 
 ## Cross-Persona Insights
 
-### Shared Vendor Needs
+### Shared Restaurant Needs
 
 - Low-cost platform
 - Easy-to-use technology
 - Comprehensive management tools
 - Marketing support
-- Flexible booking options
+- Efficient booking system
 
 ### Shared Customer Needs
 
@@ -152,9 +154,9 @@
 - Transparent pricing
 - Easy-to-navigate interface
 
-# Flavorly User Personas
+## Future Content Creator Persona (Beta/Full Launch)
 
-### 3. Alex - Social Media Food Influencer
+### Alex - Social Media Food Influencer
 
 **Demographics:**
 
@@ -166,31 +168,31 @@
 
 **Professional Profile:**
 
-- Specializes in food and dining content
-- Creates video reviews, restaurant tours, and culinary experiences
-- Collaborates with restaurants and food brands
+- Specializes in restaurant reviews and dining content
+- Creates video reviews and restaurant tours
+- Collaborates with local restaurants
 - Generates income through sponsorships and content creation
 
 **Digital Ecosystem:**
 
 - Active on multiple social media platforms
 - Uses various content creation tools
-- Manages multiple brand partnerships
+- Manages restaurant partnerships
 - Relies heavily on digital networking
 
 **Key Characteristics:**
 
-- Constantly searching for unique dining experiences
-- Values behind-the-scenes restaurant interactions
-- Seeks mutually beneficial relationships with restaurants
-- Wants to monetize and streamline content creation process
+- Reviews local restaurants
+- Values authentic dining experiences
+- Seeks partnerships with restaurants
+- Wants to monetize content creation
 
 **Content Creation Challenges:**
 
 - Difficulty coordinating restaurant visits
 - Limited platforms for professional collaboration
 - Complex process of arranging sponsored content
-- Lack of standardized influencer-restaurant interaction
+- Lack of standardized restaurant-influencer interaction
 
 **Technology Expectations:**
 
@@ -202,25 +204,25 @@
 **Pain Points:**
 
 - No unified platform for restaurant interactions
-- Time-consuming coordination of restaurant visits
-- Limited tools for professional content collaboration
-- Inconsistent communication with restaurants
-- Difficulty tracking and proving content value
+- Time-consuming coordination of visits
+- Limited tools for professional content
+- Inconsistent communication channels
+- Difficulty tracking content impact
 
-**Desired Flavorly Features:**
+**Desired Future Features:**
 
-- Direct restaurant communication channels
+- Direct restaurant communication
 - Content collaboration tools
 - Simplified booking for content creation
 - Professional portfolio management
 - Performance tracking and analytics
-- Potential revenue sharing or commission models
-- Easy content tagging and restaurant linking
+- Revenue sharing opportunities
+- Restaurant content tagging
 
 **Motivations:**
 
-- Streamline professional restaurant interactions
-- Create more authentic content experiences
-- Build stronger industry relationships
-- Monetize content more effectively
-- Gain exclusive access to dining experiences
+- Streamline restaurant interactions
+- Create authentic content
+- Build restaurant relationships
+- Monetize content effectively
+- Access exclusive dining experiences

@@ -4,24 +4,23 @@
 
 ### 1. Core Value Proposition
 
-- **Revenue Growth**: Drive bookings with unique marketing tools like hyper-local targeting and interactive maps for food trucks.
-- **Community Engagement**: Content creator fund with a built-in social network to foster discovery and engagement.
-- **Flexibility & Simplicity**: Dynamic platform accommodating diverse vendors (food trucks, private chefs, pop-ups) with user-friendly tools.
+- **Revenue Growth**: Drive bookings with unique marketing tools and hyper-local targeting.
+- **Community Engagement**: Foster discovery and engagement through user reviews and ratings.
+- **Flexibility & Simplicity**: User-friendly tools for restaurants with optional advanced features.
 - **Cost Leadership with Premium Perks**: Lower costs upfront with optional advanced features.
 
 #### Differentiators
 
-- AI-driven predictive demand analysis for vendors.
-- Gamified vendor experience (e.g., badges for "top-reviewed vendor").
+- AI-driven predictive demand analysis for restaurants.
+- Gamified restaurant experience (e.g., badges for "top-rated restaurant").
 - Loyalty-based discounts tied to user engagement metrics.
 
 ### 2. MVP Priorities
 
-- Vendor onboarding and setup.
+- Restaurant onboarding and setup.
 - Core booking and payment functionality.
-- Food truck tracking with live updates.
 - Basic search and discovery features.
-- Content creator pilot program.
+- Mobile-first waitlist implementation.
 
 ### 3. Geographic Scope
 
@@ -29,7 +28,7 @@
 
 ---
 
-## Vendor Questions
+## Restaurant Questions
 
 ### 1. Pricing
 
@@ -49,15 +48,26 @@
 
 ---
 
-### 2. Dynamic Business Models
+### 2. Business Models
 
-- **Food Trucks**: 
-  - Hybrid location tracking system combining device-based automatic updates with manual location input options
-  - Flexible schedule management
-  - Vendor control over tracking preferences
-- **Pop-Up Restaurants**: Temporary event support.
-- **Seasonal Businesses**: Flexible scheduling tools.
-- **Collaborative Events**: Multi-vendor order functionality.
+**Phase 1 (MVP):**
+
+- **Local Restaurants**:
+  - Standard booking system
+  - Menu management
+  - Schedule management
+  - Basic analytics
+
+**Future Phases:**
+
+- **Food Trucks** (Beta):
+  - Location tracking
+  - Flexible scheduling
+  - Mobile ordering
+- **Pop-Up Restaurants & Private Chefs** (Full Launch):
+  - Temporary event support
+  - Specialized booking flows
+  - Custom analytics
 
 ### 3. Customization
 
@@ -72,18 +82,18 @@
 
 - **Filters**: Proximity, star rating, cuisine type.
 - **Mood-Based Search**: Options like "cozy date night" or "fun group outing."
-- **Interactive Maps**: Food truck tracking and dynamic routes.
+- **Restaurant Discovery**: Featured restaurants and new additions.
 - **AI Suggestions**: Personalized "You May Like" recommendations.
 
 ### 2. Payments and Booking
 
-- **Payments**: 
-  - Stripe Connect for vendor transactions
+- **Payments**:
+  - Stripe Connect for restaurant transactions
   - POS Integration Priority:
-    * Square - Primary solution for food trucks
-    * Toast - Full-service restaurant integration
-    * Clover - Small/medium business solution
-    * Stripe Terminal - Complementing Stripe Connect for in-person payments
+    - Toast - Full-service restaurant integration
+    - Clover - Small/medium business solution
+    - Stripe Terminal - Complementing Stripe Connect for in-person payments
+    - Square - Added in Beta phase for food trucks
 - **Booking Confirmation**: Build in-house for scalability and flexibility.
 
 ---
@@ -92,7 +102,7 @@
 
 ### 1. In-App Ads
 
-- Swipeable carousel for vendor ads on the home page.
+- Swipeable carousel for restaurant ads on the home page.
 - Sponsored placements in the recommendation engine.
 - Avoid traditional banner ads to maintain user experience.
 
@@ -101,7 +111,7 @@
 - **Starter ($19.99/month):** Basic booking tools and analytics.
 - **Growth ($49.99/month):** Advanced analytics, marketing tools, branded pages.
 - **Pro ($99.99/month):** Priority support, enhanced insights, custom integrations.
-- **One-Time Setup Fees:** $49.99–$149.99 depending on vendor size.
+- **One-Time Setup Fees:** $49.99–$149.99 depending on restaurant size.
 
 ### 3. Upselling
 
@@ -114,18 +124,16 @@
 
 ### 1. Loyalty Program
 
-- Vendors: Points for completed bookings, redeemable for discounts or features.
+- Restaurants: Points for completed bookings, redeemable for discounts or features.
 - Customers: Rewards for milestones like discounts or priority booking.
 
-### 2. Content Creator Integrity
+### 2. Future Features (Post-MVP)
 
-- **Verification**: 
-  - Mandatory verification process before program participation
-  - Use itemized receipts and promo code tracking
-  - Review of previous content and platform presence
-- **Transparency**: Paid reviews labeled; users can filter reviews by creator.
-- **Engagement-Based Payouts**: Creator earnings tied to metrics like bill size, visit duration, and post popularity.
-- **Fraud Prevention**: AI to flag anomalies in review or promo code usage.
+- **Content Creator Program**:
+  - Verification process
+  - Review system with engagement tracking
+  - Engagement-based payouts
+  - Fraud prevention measures
 
 ### 3. Community Content
 
@@ -135,6 +143,7 @@
 ---
 
 ## Base Color Palette
+
   **Vintage Earth Palette**: #1A1110, #E4D6A7, #E9B44C, #9B2915, #43B3AE, #f6f3e7
 
 **Notes**:
@@ -143,9 +152,9 @@
 
 ---
 
-## Content Creator Model
+## Future Content Creator Model
 
-### Payout Formula
+### Planned Payout Formula
 
 - **Base Rate:** $5 flat rate for verified content.
 - **Metrics:**
@@ -164,6 +173,6 @@
 
 ### Next Steps
 
-- Revisit the payout formula for refinement as the model evolves.
-- Wireframes for the "Reviews Hub" will be prioritized later in the design phase.
-- Content policies to be drafted during development to ensure authenticity and prevent fraud.
+- Content creator program implementation planned for Beta/Full Launch phase.
+- Wireframes for the "Reviews Hub" will be developed closer to implementation.
+- Content policies to be drafted to ensure authenticity and prevent fraud.
