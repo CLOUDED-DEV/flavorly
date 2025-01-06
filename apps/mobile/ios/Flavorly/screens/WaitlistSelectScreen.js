@@ -5,6 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { StatusBar } from "react-native";
 import { useState } from "react";
@@ -13,7 +14,7 @@ import OptionCardComponent from "../components/ui/OptionCardComponent";
 
 import { Feather } from "@expo/vector-icons";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function WaitlistSelectScreen({ navigation }) {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -23,13 +24,23 @@ export default function WaitlistSelectScreen({ navigation }) {
     console.log("Card number ", cardIndex, "is selected.");
   };
 
+  const handleContinue = () => {
+    Alert.alert(
+      "Selection required",
+      "Please select an option before continuing."
+    );
+  };
+
   return (
     <View style={styles.screen}>
       <View style={styles.headerStyle}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Feather name="arrow-left" size={28} color="#1A1110" />
         </TouchableOpacity>
-        <Image source={require("../assets/flavorly_logo.png")} style={styles.logo}/>
+        <Image
+          source={require("../assets/flavorly_logo.png")}
+          style={styles.logo}
+        />
       </View>
 
       <View style={styles.title}>
@@ -61,10 +72,7 @@ export default function WaitlistSelectScreen({ navigation }) {
 
       <StatusBar style="auto" />
       <View style={styles.buttonContainer}>
-        <CTAButton
-          title="Continue"
-          onPress={() => console.log("Handle selection")}
-        />
+        <CTAButton title="Continue" onPress={handleContinue} />
       </View>
     </View>
   );
@@ -78,11 +86,11 @@ const styles = StyleSheet.create({
     // paddingTop: 20,
   },
   headerStyle: {
-    flexDirection: "row", 
+    flexDirection: "row",
     alignItems: "center",
     paddingLeft: 10,
     justifyContent: "space-between",
-    marginRight: -5
+    marginRight: -5,
   },
   logo: {
     height: 75,
@@ -92,7 +100,7 @@ const styles = StyleSheet.create({
   title: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 35,
     // paddingTop: 10,
     width: "100%",
   },
@@ -124,9 +132,10 @@ const styles = StyleSheet.create({
   optionsContainer: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 100,
-    // justifyContent: "center",
+    top: height * 0.1,
+    // bottom: height*1,
+    // justifyContent: "space-between",
     paddingHorizontal: 20,
-    gap: 60,
+    gap: 70,
   },
 });
