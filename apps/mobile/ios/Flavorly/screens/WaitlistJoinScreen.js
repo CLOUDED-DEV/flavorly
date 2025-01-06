@@ -4,7 +4,6 @@ import {
   Dimensions,
   View,
   Image,
-  useEffect,
 } from "react-native";
 import { StatusBar } from "react-native";
 import WaitlistContainer from "../components/ui/waitlistContainer";
