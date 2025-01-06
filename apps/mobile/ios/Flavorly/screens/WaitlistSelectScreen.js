@@ -1,21 +1,53 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { StatusBar } from "react-native";
 import { useState } from "react";
 import CTAButton from "../components/ui/CTAButton";
 import OptionCardComponent from "../components/ui/OptionCardComponent";
 
-const { width } = Dimensions.get("window");
+import { Feather } from "@expo/vector-icons";
 
-export default function WaitlistSelectScreen() {
+const { width, height } = Dimensions.get("window");
+
+export default function WaitlistSelectScreen({ navigation }) {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handlePress = (cardIndex) => {
-    setSelectedCard(cardIndex)
-    console.log("Card number ",cardIndex,"is selected.")
+    setSelectedCard(cardIndex);
+  };
+
+  const handleContinue = () => {
+    if (selectedCard === 1){
+      navigation.navigate("FoodieSignupScreen")
+    } else if (selectedCard === 2){
+      navigation.navigate("BusinessSignupScreen")
+    }else{
+      Alert.alert(
+        "Selection required",
+        "Please select an option before continuing."
+      );
+    }
   };
 
   return (
     <View style={styles.screen}>
+      <View style={styles.headerStyle}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Feather name="arrow-left" size={28} color="#1A1110" />
+        </TouchableOpacity>
+        <Image
+          source={require("../assets/flavorly_logo.png")}
+          style={styles.logo}
+        />
+      </View>
+
       <View style={styles.title}>
         <View style={styles.titleWrapper}>
           <Text
@@ -32,23 +64,20 @@ export default function WaitlistSelectScreen() {
         <OptionCardComponent
           title="Foodie"
           description="Discover and connect with amazing local food experiences"
-          isSelected={selectedCard===1} // if selectedCard's value is equal to 1, this returns true which triggers the selected styling
+          isSelected={selectedCard === 1} // if selectedCard's value is equal to 1, this returns true which triggers the selected styling
           onPress={() => handlePress(1)}
         />
         <OptionCardComponent
           title="Business"
           description="Grow your food business and connect with customers"
-          isSelected={selectedCard===2} // if selectedCard's value is equal to 2, this returns true which triggers the selected styling
+          isSelected={selectedCard === 2} // if selectedCard's value is equal to 2, this returns true which triggers the selected styling
           onPress={() => handlePress(2)}
         />
       </View>
 
       <StatusBar style="auto" />
       <View style={styles.buttonContainer}>
-        <CTAButton
-          title="Continue"
-          onPress={() => console.log("Handle selection")}
-        />
+        <CTAButton title="Continue" onPress={handleContinue} />
       </View>
     </View>
   );
@@ -59,16 +88,29 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "relative",
     backgroundColor: "#f6f3e7",
-    paddingTop: 50,
+    // paddingTop: 20,
+  },
+  headerStyle: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+    justifyContent: "space-between",
+    marginRight: -5,
+  },
+  logo: {
+    height: 75,
+    width: 75,
+    resizeMode: "contain",
   },
   title: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 35,
+    // paddingTop: 10,
     width: "100%",
   },
   titleWrapper: {
-    width: width * 0.9,
+    width: width * 0.95,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -95,9 +137,10 @@ const styles = StyleSheet.create({
   optionsContainer: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 120,
-    // justifyContent: "center",
+    top: height * 0.1,
+    // bottom: height*1,
+    // justifyContent: "space-between",
     paddingHorizontal: 20,
-    gap: 60,
+    gap: 70,
   },
 });

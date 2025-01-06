@@ -7,21 +7,28 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const width = Dimensions.get("window").width
+const width = Dimensions.get("window").width;
 
-export default function OptionCardComponent({ title, description, onPress, isSelected }) {
-
+export default function OptionCardComponent({
+  title,
+  description,
+  onPress,
+  isSelected,
+}) {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.optionCard, isSelected && styles.selectedCard]}>
-        <Text style={styles.optionTitle}>{title}</Text>
-        <Text style={styles.optionDescription} >{description}</Text>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.optionCard, isSelected && styles.selectedCard]}
+    >
+      <Text style={styles.optionTitle}>{title}</Text>
+      <Text style={styles.optionDescription}>{description}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   optionCard: {
-    width: width*.95,
+    width: width * 0.95,
     padding: 20,
     backgroundColor: "#fff",
     borderRadius: 15,
@@ -45,5 +52,6 @@ const styles = StyleSheet.create({
   selectedCard: {
     backgroundColor: "#e6f7ff", // Example selected color
     borderColor: "#007bff",
-    borderWidth: .5,  }
+    borderWidth: 0.5,
+  },
 });

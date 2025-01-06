@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Asset } from "expo-asset";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import WaitlistJoinScreen from "./screens/WaitlistJoinScreen";
 import WaitlistSelectScreen from "./screens/WaitlistSelectScreen";
+import FoodieSignupScreen from "./screens/FoodieSignupScreen";
+import BusinessSignupScreen from "./screens/BusinessSignupScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +22,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     "sofiasans-black": require("./assets/fonts/SofiaSans-Black.ttf"),
     "BlackHanSans-Regular": require("./assets/fonts/BlackHanSans-Regular.ttf"),
-    "sofiasans-regular": require("./assets/fonts/SofiaSans-Regular.ttf")
+    "sofiasans-regular": require("./assets/fonts/SofiaSans-Regular.ttf"),
   });
 
   // preload images
@@ -56,20 +58,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.rootContainer}>
-        <Stack.Navigator 
+        <Stack.Navigator
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: '#f6f3e7' }
+            contentStyle: { backgroundColor: "#f6f3e7" },
           }}
         >
-          <Stack.Screen 
-            name="WaitlistJoin" 
-            component={WaitlistJoinScreen} 
-          />
-          <Stack.Screen 
-            name="WaitlistSelect" 
-            component={WaitlistSelectScreen} 
-          />
+          <Stack.Screen name="WaitlistJoin" component={WaitlistJoinScreen} />
+          <Stack.Screen name="WaitlistSelect" component={WaitlistSelectScreen}/>
+          <Stack.Screen name="FoodieSignupScreen" component={FoodieSignupScreen}/>
+          <Stack.Screen name="BusinessSignupScreen" component={BusinessSignupScreen}/>
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>

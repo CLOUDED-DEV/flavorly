@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  Dimensions,
-  View,
-  Image,
-  useEffect,
-} from "react-native";
+import { StyleSheet, Text, Dimensions, View, Image } from "react-native";
 import { StatusBar } from "react-native";
 import WaitlistContainer from "../components/ui/waitlistContainer";
 import CTAButton from "../components/ui/CTAButton";
@@ -55,18 +48,18 @@ export default function WaitlistJoinScreen({ navigation }) {
         </View>
       </View>
 
-      <WaitlistContainer 
+      <WaitlistContainer
         iconName="map-pin"
         title="Explore"
         subtext="exciting restaurants and hidden gems near you"
       />
-      <WaitlistContainer 
+      <WaitlistContainer
         iconName="share-2"
         title="Share"
         subtext="your experiences with an expanding community"
         iconColor="#43B3AE"
       />
-      <WaitlistContainer 
+      <WaitlistContainer
         iconName="users"
         title="Connect"
         subtext="with food lovers and creators"
@@ -74,9 +67,9 @@ export default function WaitlistJoinScreen({ navigation }) {
       />
       <StatusBar style="auto" />
       <View style={styles.buttonContainer}>
-        <CTAButton 
-          title="Join the Waitlist!" 
-          onPress={() => navigation.navigate('WaitlistSelect')}
+        <CTAButton
+          title="Join the Waitlist!"
+          onPress={() => navigation.navigate("WaitlistSelect")}
         />
       </View>
     </View>
@@ -86,7 +79,7 @@ export default function WaitlistJoinScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    position: 'relative',
+    position: "relative",
   },
   logoWrapper: {
     // borderWidth: "2", // to see how big the wrapper is
