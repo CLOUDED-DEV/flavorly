@@ -77,10 +77,6 @@ This directory contains the React Native/Expo implementation of Flavorly's mobil
    - Loading states for API interactions
 
 2. Additional Screens (Upcoming):
-   - WaitlistSelectScreen implementation with toggle design:
-     * Toggle between Foodie and Business roles
-     * Dynamic content based on selection
-     * Consistent styling with main screen
    - Additional waitlist flow screens
    - Form screens for data collection
 
