@@ -1,9 +1,58 @@
-import { View, Text } from "react-native"
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+} from "react-native";
+import CTAButton from "../components/ui/CTAButton";
 
-export default function FoodieSignupScreen(){
-    return(
-        <View>
-            <Text>Foodie screen</Text>
-        </View>
-    )
+import { Feather } from "@expo/vector-icons";
+
+export default function FoodieSignupScreen({ navigation }) {
+  return (
+    <View style={styles.screen}>
+      <View style={styles.headerStyle}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Feather name="arrow-left" size={28} color="#1A1110" />
+        </TouchableOpacity>
+        <Image
+          source={require("../assets/flavorly_logo.png")}
+          style={styles.logo}
+        />
+      </View>
+      <StatusBar style="auto" />
+      <View style={styles.buttonContainer}>
+        <CTAButton title="Submit" onPress={()=>{console.log("Foodie submit")}} />
+      </View>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    position: "relative",
+    backgroundColor: "#f6f3e7",
+  },
+  headerStyle: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+    justifyContent: "space-between",
+    marginRight: -5,
+  },
+  logo: {
+    height: 75,
+    width: 75,
+    resizeMode: "contain",
+  },
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 60,
+    left: 0,
+  },
+});
