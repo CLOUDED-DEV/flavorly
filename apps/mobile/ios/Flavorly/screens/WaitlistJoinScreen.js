@@ -7,11 +7,12 @@ import {
   useEffect,
 } from "react-native";
 import { StatusBar } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import WaitlistContainer from "../components/ui/waitlistContainer";
+import CTAButton from "../components/ui/CTAButton";
 const { width } = Dimensions.get("window");
-export default function WaitlistJoinScreen() {
+export default function WaitlistJoinScreen({ navigation }) {
   return (
-    <View>
+    <View style={styles.screen}>
       <View style={styles.logoWrapper}>
         <Image
           source={require("../assets/flavorly_logo.png")}
@@ -54,18 +55,39 @@ export default function WaitlistJoinScreen() {
         </View>
       </View>
 
-      <View style={styles.waitlistWholeContainer}>
-        <View style={styles.waitlistSingleContainer}>
-          <Feather name="map-pin" size={24} color="#A81C07" />
-          <Text style={styles.waitlistContainerTitle}>Explore{"\n"}<Text style={styles.waitlistContainerSubtext}>exciting restaurants and hidden gems near you</Text></Text>
-        </View>
-      </View>
+      <WaitlistContainer 
+        iconName="map-pin"
+        title="Explore"
+        subtext="exciting restaurants and hidden gems near you"
+      />
+      <WaitlistContainer 
+        iconName="share-2"
+        title="Share"
+        subtext="your experiences with an expanding community"
+        iconColor="#43B3AE"
+      />
+      <WaitlistContainer 
+        iconName="users"
+        title="Connect"
+        subtext="with food lovers and creators"
+        iconColor="#FE7F2D"
+      />
       <StatusBar style="auto" />
+      <View style={styles.buttonContainer}>
+        <CTAButton 
+          title="Join the Waitlist!" 
+          onPress={() => navigation.navigate('WaitlistSelect')}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    position: 'relative',
+  },
   logoWrapper: {
     // borderWidth: "2", // to see how big the wrapper is
     alignItems: "center",
@@ -119,24 +141,11 @@ const styles = StyleSheet.create({
   blueColor: {
     color: "#43B3AE",
   },
-  waitlistWholeContainer: {
+  buttonContainer: {
     width: "100%",
-    marginTop: 40,
-    paddingLeft: 10
+    alignItems: "center",
+    position: "absolute",
+    bottom: 60,
+    left: 0,
   },
-  waitlistSingleContainer: {
-    width: width * 0.95,
-    flexDirection: "row",
-    alignItems: "center"
-
-  },
-  waitlistContainerTitle: {
-    fontFamily: "BlackHanSans-Regular",
-    fontSize: 36, 
-    paddingLeft: 10
-  },
-  waitlistContainerSubtext:{
-    fontFamily: "sofiasans-regular",
-    fontSize: 16
-  }
 });
