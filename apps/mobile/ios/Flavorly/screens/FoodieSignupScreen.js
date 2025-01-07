@@ -47,17 +47,26 @@ export default function FoodieSignupScreen({ navigation }) {
   const validateEmail = (text) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmail(text);
-    setEmailError(emailRegex.test(text) ? "" : "Please enter a valid email");
+    const isValid = emailRegex.test(text);
+    setEmailError(isValid ? "" : "Please enter a valid email");
+    if (isValid) {
+      setFormError(""); // Clear form error when email becomes valid
+    }
   };
 
   const isFormValid = () => {
+    // Check email validity first
     if (!email || emailError) return false;
+    
+    // If content creator mode is enabled, check platform requirements
     if (toggleIsEnabled) {
       const hasValidPlatform = platforms.some(
         (p) => p.platform && p.username && !p.error
       );
-      if (!hasValidPlatform) return false;
+      return hasValidPlatform;
     }
+    
+    // If not in content creator mode, only email is required
     return true;
   };
 
@@ -75,16 +84,23 @@ export default function FoodieSignupScreen({ navigation }) {
   };
 
   const toggleSwitch = () => {
-    setToggleIsEnabled((previousState) => !previousState);
-    if (!toggleIsEnabled) {
-      setPlatforms([
-        {
-          platform: "",
-          username: "",
-          error: "",
-        },
-      ]);
-    }
+    setToggleIsEnabled((previousState) => {
+      if (!previousState) {
+        // Turning on content creator mode
+        setPlatforms([
+          {
+            platform: "",
+            username: "",
+            error: "",
+          },
+        ]);
+      } else {
+        // Turning off content creator mode
+        setFormError(""); // Clear any form errors
+        setPlatforms([{ platform: "", username: "", error: "" }]); // Reset platforms
+      }
+      return !previousState;
+    });
   };
 
   const addPlatform = () => {
