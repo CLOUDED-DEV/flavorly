@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  Dimensions,
 } from "react-native";
 import CTAButton from "../components/ui/CTAButton";
 
 import { Feather } from "@expo/vector-icons";
+const { width, height } = Dimensions.get("window");
 
 export default function BusinessSignupScreen({ navigation }) {
   return (
