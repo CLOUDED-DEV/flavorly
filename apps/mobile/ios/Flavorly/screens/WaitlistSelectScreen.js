@@ -64,13 +64,13 @@ export default function WaitlistSelectScreen({ navigation }) {
         <OptionCardComponent
           title="Foodie"
           description="Discover and connect with amazing local food experiences"
-          isSelected={selectedCard === 1} // if selectedCard's value is equal to 1, this returns true which triggers the selected styling
+          isSelected={selectedCard === 1}
           onPress={() => handlePress(1)}
         />
         <OptionCardComponent
           title="Business"
           description="Grow your food business and connect with customers"
-          isSelected={selectedCard === 2} // if selectedCard's value is equal to 2, this returns true which triggers the selected styling
+          isSelected={selectedCard === 2}
           onPress={() => handlePress(2)}
         />
       </View>
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "relative",
     backgroundColor: "#f6f3e7",
-    // paddingTop: 20,
   },
   headerStyle: {
     flexDirection: "row",
@@ -105,8 +104,7 @@ const styles = StyleSheet.create({
   title: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 35,
-    // paddingTop: 10,
+    marginTop: height*.02,
     width: "100%",
   },
   titleWrapper: {
@@ -137,10 +135,8 @@ const styles = StyleSheet.create({
   optionsContainer: {
     flex: 1,
     alignItems: "center",
-    top: height * 0.1,
-    // bottom: height*1,
-    // justifyContent: "space-between",
+    paddingTop: height * 0.08, // Fixed percentage of screen height for top padding
     paddingHorizontal: 20,
-    gap: 70,
+    gap: height * 0.05, // Smaller gap between cards
   },
 });

@@ -22,6 +22,7 @@ import {
   AntDesign,
   MaterialIcons,
   FontAwesome,
+  FontAwesome6
 } from "@expo/vector-icons";
 const { width, height } = Dimensions.get("window");
 
@@ -37,7 +38,7 @@ export default function FoodieSignupScreen({ navigation }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [iconsLoaded, setIconsLoaded] = useState(false);
 
-  const socialPlatforms = ["Instagram", "TikTok", "YouTube"];
+  const socialPlatforms = ["Instagram", "TikTok", "YouTube", "X"];
 
   // Preload icons
   useEffect(() => {
@@ -75,9 +76,11 @@ export default function FoodieSignupScreen({ navigation }) {
       case "Instagram":
         return <FontAwesome name="instagram" size={24} color="#1A1110" />;
       case "TikTok":
-        return <FontAwesome name="music" size={24} color="#1A1110" />;
+        return <FontAwesome6 name="tiktok" size={24} color="#1A1110" />;
       case "YouTube":
         return <FontAwesome name="youtube-play" size={24} color="#1A1110" />;
+      case "X":
+        return <FontAwesome6 name="x-twitter" size={24} color="#1A1110" />;
       default:
         return null;
     }
@@ -180,7 +183,7 @@ export default function FoodieSignupScreen({ navigation }) {
           <View style={styles.switchContainer}>
             <View style={styles.switchRow}>
               <Text style={styles.switchLabel}>
-                Sign up as a Content Creator
+                Sign up for our Content Creator program
               </Text>
               <Switch
                 trackColor={{ false: "#E4D6A7", true: "#43B3AE" }}
@@ -192,7 +195,7 @@ export default function FoodieSignupScreen({ navigation }) {
               />
             </View>
             <Text style={styles.switchDescription}>
-              Create content, earn rewards, and share your dining experiences
+              Earn rewards and share your dining experiences from other platforms
             </Text>
           </View>
 
@@ -398,11 +401,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 8,
+    // gap: 10
   },
   switchLabel: {
+    // flex: 1,
     fontSize: 16,
+    fontSize: Math.min(16, width*0.04),
     fontFamily: "sofiasans-medium",
     color: "#1A1110",
+    // paddingRight:
   },
   switchDescription: {
     fontSize: 14,
