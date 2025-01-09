@@ -5,26 +5,20 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
-  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
   Switch,
   Dimensions,
   ScrollView,
-  Animated,
-  PanResponder,
-  Modal,
 } from "react-native";
 import { useState, useEffect } from "react";
+import { Feather } from "@expo/vector-icons";
 import CTAButton from "../components/ui/CTAButton";
-import {
-  Feather,
-  AntDesign,
-  MaterialIcons,
-  FontAwesome,
-  FontAwesome6
-} from "@expo/vector-icons";
-const { width, height } = Dimensions.get("window");
+import EmailInput from "../components/ui/EmailInput";
+import BenefitsModal from "../components/ui/BenefitsModal";
+import PlatformSelectionModal from "../components/ui/PlatformSelectionModal";
+import PlatformInputSection from "../components/ui/PlatformInputSection";
+const { width } = Dimensions.get("window");
 
 export default function FoodieSignupScreen({ navigation }) {
   const [toggleIsEnabled, setToggleIsEnabled] = useState(false);
@@ -35,6 +29,7 @@ export default function FoodieSignupScreen({ navigation }) {
   const [emailError, setEmailError] = useState("");
   const [formError, setFormError] = useState("");
   const [showPlatformModal, setShowPlatformModal] = useState(false);
+  const [showBenefitsModal, setShowBenefitsModal] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [iconsLoaded, setIconsLoaded] = useState(false);
 
@@ -69,21 +64,6 @@ export default function FoodieSignupScreen({ navigation }) {
     
     // If not in content creator mode, only email is required
     return true;
-  };
-
-  const getPlatformIcon = (platform) => {
-    switch (platform) {
-      case "Instagram":
-        return <FontAwesome name="instagram" size={24} color="#1A1110" />;
-      case "TikTok":
-        return <FontAwesome6 name="tiktok" size={24} color="#1A1110" />;
-      case "YouTube":
-        return <FontAwesome name="youtube-play" size={24} color="#1A1110" />;
-      case "X":
-        return <FontAwesome6 name="x-twitter" size={24} color="#1A1110" />;
-      default:
-        return null;
-    }
   };
 
   const toggleSwitch = () => {
@@ -166,19 +146,11 @@ export default function FoodieSignupScreen({ navigation }) {
             />
           </View>
 
-          <View style={styles.formContainer}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              style={[styles.input, emailError && styles.inputError]}
-              placeholder="Enter your email"
-              placeholderTextColor="#A0A0A0"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              value={email}
-              onChangeText={validateEmail}
-            />
-            {emailError && <Text style={styles.errorText}>{emailError}</Text>}
-          </View>
+          <EmailInput 
+            email={email}
+            onChangeEmail={validateEmail}
+            error={emailError}
+          />
 
           <View style={styles.switchContainer}>
             <View style={styles.switchRow}>
@@ -200,77 +172,16 @@ export default function FoodieSignupScreen({ navigation }) {
           </View>
 
           {toggleIsEnabled && (
-            <View style={styles.creatorContainer}>
-              <Text style={styles.creatorTitle}>
-                Your Social Media Platforms
-              </Text>
-              {platforms.map((item, index) => (
-                <View key={index} style={styles.platformContainer}>
-                  <View style={styles.platformWrapper}>
-                    <View style={styles.platformRow}>
-                      <TouchableOpacity
-                        style={[
-                          styles.platformSelect,
-                          item.platform && {
-                            borderColor: "#43B3AE",
-                            borderWidth: 2,
-                          },
-                        ]}
-                        onPress={() => {
-                          setSelectedIndex(index);
-                          setShowPlatformModal(true);
-                        }}
-                      >
-                        <View style={styles.platformSelectContent}>
-                          {item.platform && getPlatformIcon(item.platform)}
-                          <Text
-                            style={[
-                              styles.platformSelectText,
-                              item.platform &&
-                                styles.platformSelectTextSelected,
-                            ]}
-                          >
-                            {item.platform || "Select Platform"}
-                          </Text>
-                        </View>
-                        <AntDesign name="down" size={20} color="#1A1110" />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View>
-                    <TextInput
-                      style={[
-                        styles.platformInput,
-                        item.error && styles.inputError,
-                      ]}
-                      placeholder="Enter your username"
-                      placeholderTextColor="#A0A0A0"
-                      value={item.username}
-                      onChangeText={(text) =>
-                        updatePlatform(index, "username", text)
-                      }
-                    />
-                    {item.error && (
-                      <Text style={styles.errorText}>{item.error}</Text>
-                    )}
-                  </View>
-                </View>
-              ))}
-              <TouchableOpacity
-                style={[
-                  styles.addPlatformButton,
-                  platforms.length >= socialPlatforms.length &&
-                    styles.addPlatformButtonDisabled,
-                ]}
-                onPress={addPlatform}
-                disabled={platforms.length >= socialPlatforms.length}
-              >
-                <AntDesign name="plus" size={20} color="#FFFFFF" />
-                <Text style={styles.addPlatformButtonText}>
-                  Add Another Platform
-                </Text>
-              </TouchableOpacity>
-            </View>
+            <PlatformInputSection
+              platforms={platforms}
+              onPlatformPress={(index) => {
+                setSelectedIndex(index);
+                setShowPlatformModal(true);
+              }}
+              onUpdatePlatform={updatePlatform}
+              onAddPlatform={addPlatform}
+              maxPlatforms={socialPlatforms.length}
+            />
           )}
 
           {formError && (
@@ -299,66 +210,27 @@ export default function FoodieSignupScreen({ navigation }) {
             }}
             disabled={!isFormValid()}
           />
+          <View style={styles.moreInformationContainer}>
+            <TouchableOpacity onPress={() => setShowBenefitsModal(true)}>
+              <Text style={styles.moreInformationText}>Why Join Flavorly? Click Here To Learn More!</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        {/* Hidden container to preload icons */}
-        {iconsLoaded && (
-          <View style={{ position: "absolute", opacity: 0 }}>
-            {socialPlatforms.map((platform) => (
-              <View key={platform}>{getPlatformIcon(platform)}</View>
-            ))}
-          </View>
-        )}
 
-        <Modal
+        <PlatformSelectionModal
           visible={showPlatformModal && iconsLoaded}
-          transparent={true}
-          animationType="fade"
-          onRequestClose={() => setShowPlatformModal(false)}
-        >
-          <TouchableWithoutFeedback onPress={() => setShowPlatformModal(false)}>
-            <View style={styles.modalOverlay}>
-              <TouchableWithoutFeedback>
-                <View style={styles.modalContent}>
-                  <Text style={styles.modalTitle}>Select Platform</Text>
-                  {socialPlatforms.map((platform) => {
-                    const isDisabled = platforms.some(
-                      (p, i) => p.platform === platform && i !== selectedIndex
-                    );
-                    return (
-                      <TouchableOpacity
-                        key={platform}
-                        style={[
-                          styles.modalOption,
-                          isDisabled && styles.modalOptionDisabled,
-                        ]}
-                        onPress={() => !isDisabled && selectPlatform(platform)}
-                        disabled={isDisabled}
-                      >
-                        <View style={styles.modalOptionContent}>
-                          {getPlatformIcon(platform)}
-                          <Text
-                            style={[
-                              styles.modalOptionText,
-                              isDisabled && styles.modalOptionTextDisabled,
-                            ]}
-                          >
-                            {platform}
-                          </Text>
-                        </View>
-                        {isDisabled && (
-                          <Text style={styles.modalOptionDisabledText}>
-                            Already selected
-                          </Text>
-                        )}
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
+          onClose={() => setShowPlatformModal(false)}
+          onSelect={selectPlatform}
+          platforms={socialPlatforms}
+          selectedPlatforms={platforms.map(p => p.platform)}
+          currentIndex={selectedIndex}
+        />
+
+        <BenefitsModal
+          visible={showBenefitsModal}
+          onClose={() => setShowBenefitsModal(false)}
+        />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -388,10 +260,6 @@ const styles = StyleSheet.create({
     width: 75,
     resizeMode: "contain",
   },
-  formContainer: {
-    paddingHorizontal: 20,
-    marginTop: 30,
-  },
   switchContainer: {
     marginTop: 30,
     paddingHorizontal: 20,
@@ -401,15 +269,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 8,
-    // gap: 10
   },
   switchLabel: {
-    // flex: 1,
     fontSize: 16,
     fontSize: Math.min(16, width*0.04),
     fontFamily: "sofiasans-medium",
     color: "#1A1110",
-    // paddingRight:
   },
   switchDescription: {
     fontSize: 14,
@@ -420,134 +285,24 @@ const styles = StyleSheet.create({
   switch: {
     transform: [{ scaleX: 1.2 }, { scaleY: 1.1 }],
   },
-  label: {
-    fontSize: 16,
-    fontFamily: "sofiasans-medium",
-    color: "#1A1110",
-    marginBottom: 8,
-  },
-  input: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    padding: 15,
-    fontSize: 16,
-    fontFamily: "sofiasans-light",
-    color: "#1A1110",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  inputError: {
-    borderWidth: 1,
-    borderColor: "#9B2915",
-  },
-  creatorContainer: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  creatorTitle: {
-    fontSize: 18,
-    fontFamily: "sofiasans-medium",
-    color: "#1A1110",
-    marginBottom: 16,
-  },
-  platformContainer: {
-    marginBottom: 16,
-  },
-  platformWrapper: {
-    position: "relative",
-    marginBottom: 8,
-  },
-  platformRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  platformSelect: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    padding: 15,
-    borderColor: "transparent",
-    borderWidth: 2,
-  },
-  platformSelectContent: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  platformSelectText: {
-    marginLeft: 8,
-    fontSize: 16,
-    fontFamily: "sofiasans-light",
-    color: "#A0A0A0",
-  },
-  platformSelectTextSelected: {
-    color: "#1A1110",
-  },
-  platformInput: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    padding: 15,
-    fontSize: 16,
-    fontFamily: "sofiasans-light",
-    color: "#1A1110",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  addPlatformButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#43B3AE",
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    marginTop: 10,
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  addPlatformButtonText: {
-    marginLeft: 8,
-    fontSize: 16,
-    fontFamily: "sofiasans-medium",
-    color: "#FFFFFF",
-  },
   submitButtonContainer: {
     backgroundColor: "#f6f3e7",
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderTopWidth: 1,
     borderTopColor: "rgba(0,0,0,0.1)",
+    paddingBottom: 35
+  },
+  moreInformationContainer: {
+    // borderWidth: 2,
+    marginTop: 20,
+    alignItems: "center"
+  },
+  moreInformationText: {
+    fontFamily: "sofiasans-bold", 
+    color: "#1A1110",
+    fontSize: 15,
+    textAlign: "center"
   },
   errorText: {
     color: "#9B2915",
@@ -560,64 +315,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 20,
     marginBottom: 10,
-  },
-  addPlatformButtonDisabled: {
-    backgroundColor: "#A0A0A0",
-    opacity: 0.5,
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContent: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    padding: 20,
-    width: width - 40,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontFamily: "sofiasans-medium",
-    color: "#1A1110",
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  modalOption: {
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E4D6A7",
-  },
-  modalOptionContent: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  modalOptionText: {
-    marginLeft: 12,
-    fontSize: 16,
-    fontFamily: "sofiasans-medium",
-    color: "#1A1110",
-  },
-  modalOptionDisabled: {
-    opacity: 0.5,
-  },
-  modalOptionTextDisabled: {
-    color: "#A0A0A0",
-  },
-  modalOptionDisabledText: {
-    fontSize: 12,
-    fontFamily: "sofiasans-light",
-    color: "#9B2915",
-    marginTop: 4,
-    marginLeft: 36,
   },
 });
