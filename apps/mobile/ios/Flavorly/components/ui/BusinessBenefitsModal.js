@@ -17,14 +17,19 @@ const { width } = Dimensions.get("window");
 export default function BusinessBenefitsModal({ visible, onClose }) {
   const benefits = [
     {
-      title: "Drive More Bookings and Revenue",
-      description:
-        "Leverage AI-driven recommendations and hyper-local targeting to attract more diners to your establishment.",
-    },
-    {
       title: "Save on High Fees",
       description:
-        "No hidden fees or high commissions—Flavorly offers affordable plans for businesses of all sizes.",
+        "No hidden fees or high commissions by offering affordable plans for businesses of all sizes.",
+    },
+    {
+      title: "Drive More Bookings and Revenue",
+      description:
+        "Leverage AI-driven recommendations to attract more diners to your establishment.",
+    },
+    {
+      title: "Exclusive Early Adopter Perks",
+      description:
+        "Get access to limited-time discounts and special offers for businesses that join early.",
     },
     {
       title: "Simple Setup, Powerful Tools",
@@ -35,11 +40,6 @@ export default function BusinessBenefitsModal({ visible, onClose }) {
       title: "Build a Loyal Customer Base",
       description:
         "Reward diners with loyalty programs that encourage repeat visits and positive reviews.",
-    },
-    {
-      title: "Gain Insights to Grow Your Business",
-      description:
-        "Access analytics on customer trends, popular dishes, and booking patterns.",
     },
   ];
 
