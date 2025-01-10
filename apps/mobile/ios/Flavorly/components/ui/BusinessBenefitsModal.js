@@ -8,6 +8,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
@@ -49,27 +50,31 @@ export default function BusinessBenefitsModal({ visible, onClose }) {
       visible={visible}
       onRequestClose={onClose}
     >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Why Join Flavorly?</Text>
-            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <Feather name="x" size={24} color="#1A1110" />
-            </TouchableOpacity>
-          </View>
-
-          <ScrollView style={styles.scrollView}>
-            {benefits.map((benefit, index) => (
-              <View key={index} style={styles.benefitContainer}>
-                <Text style={styles.benefitTitle}>{benefit.title}</Text>
-                <Text style={styles.benefitDescription}>
-                  {benefit.description}
-                </Text>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.centeredView}>
+          <TouchableWithoutFeedback>
+            <View style={styles.modalView}>
+              <View style={styles.header}>
+                <Text style={styles.headerText}>Why Join Flavorly?</Text>
+                <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                  <Feather name="x" size={24} color="#1A1110" />
+                </TouchableOpacity>
               </View>
-            ))}
-          </ScrollView>
+
+              <ScrollView style={styles.scrollView}>
+                {benefits.map((benefit, index) => (
+                  <View key={index} style={styles.benefitContainer}>
+                    <Text style={styles.benefitTitle}>{benefit.title}</Text>
+                    <Text style={styles.benefitDescription}>
+                      {benefit.description}
+                    </Text>
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }

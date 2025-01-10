@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,20 +8,21 @@ import {
   Modal,
   ScrollView,
   Dimensions,
-} from 'react-native';
-import { Feather } from '@expo/vector-icons';
+  TouchableWithoutFeedback
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
-const BusinessInput = ({ 
-  label, 
-  value, 
-  onChangeText, 
-  error, 
+const BusinessInput = ({
+  label,
+  value,
+  onChangeText,
+  error,
   placeholder,
   isDropdown = false,
   options = [],
-  editable = true
+  editable = true,
 }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -33,14 +34,15 @@ const BusinessInput = ({
   const renderInput = () => {
     if (isDropdown) {
       return (
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => editable && setShowModal(true)}
-          style={[styles.input, error && styles.inputError, !editable && styles.inputDisabled]}
+          style={[
+            styles.input,
+            error && styles.inputError,
+            !editable && styles.inputDisabled,
+          ]}
         >
-          <Text style={[
-            styles.dropdownText, 
-            !value && styles.placeholderText
-          ]}>
+          <Text style={[styles.dropdownText, !value && styles.placeholderText]}>
             {value || placeholder}
           </Text>
           <Feather name="chevron-down" size={20} color="#1A1110" />
@@ -72,35 +74,33 @@ const BusinessInput = ({
         animationType="slide"
         onRequestClose={() => setShowModal(false)}
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Select {label}</Text>
-              <TouchableOpacity onPress={() => setShowModal(false)}>
-                <Feather name="x" size={24} color="#1A1110" />
-              </TouchableOpacity>
+        <TouchableWithoutFeedback onPress={()=>setShowModal(false)}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Select {label}</Text>
+              </View>
+              <ScrollView style={styles.optionsList}>
+                {options.map((option, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.optionItem}
+                    onPress={() => handleOptionSelect(option)}
+                  >
+                    <Text
+                      style={[
+                        styles.optionText,
+                        value === option && styles.selectedOptionText,
+                      ]}
+                    >
+                      {option}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
             </View>
-            <ScrollView style={styles.optionsList}>
-              {options.map((option, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={styles.optionItem}
-                  onPress={() => handleOptionSelect(option)}
-                >
-                  <Text style={[
-                    styles.optionText,
-                    value === option && styles.selectedOptionText
-                  ]}>
-                    {option}
-                  </Text>
-                  {value === option && (
-                    <Feather name="check" size={20} color="#43B3AE" />
-                  )}
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </View>
   );
@@ -109,7 +109,7 @@ const BusinessInput = ({
 const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 20,
-    marginTop: 20,
+    marginTop: height*.03,
   },
   label: {
     fontSize: 16,
@@ -132,9 +132,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   inputError: {
     borderWidth: 1,
@@ -161,45 +161,48 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    backgroundColor: '#f6f3e7',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingVertical: 20,
-    maxHeight: '80%',
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 20,
+    width: width - 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.1)',
+    fontSize: 18,
+    fontFamily: "sofiasans-medium",
+    color: "#1A1110",
+    marginBottom: 10,
+    textAlign: "center",
   },
   modalTitle: {
-    fontSize: 20,
-    fontFamily: "sofiasans-bold",
+    fontSize: 18,
+    fontFamily: "sofiasans-medium",
     color: "#1A1110",
+    textAlign: "center",
   },
   optionsList: {
     marginTop: 10,
   },
   optionItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 15,
-    paddingHorizontal: 20,
+    paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.05)',
+    borderBottomColor: "#E4D6A7",
   },
   optionText: {
     fontSize: 16,
-    fontFamily: "sofiasans-regular",
+    fontFamily: "sofiasans-medium",
     color: "#1A1110",
   },
   selectedOptionText: {
