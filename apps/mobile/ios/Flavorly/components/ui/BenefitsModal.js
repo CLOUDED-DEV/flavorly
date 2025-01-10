@@ -1,141 +1,141 @@
-import React from 'react';
+import React from "react";
 import {
+  Modal,
   View,
   Text,
   StyleSheet,
-  Modal,
   TouchableOpacity,
-  TouchableWithoutFeedback,
+  ScrollView,
   Dimensions,
-} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+  TouchableWithoutFeedback,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
-const BenefitsModal = ({ visible, onClose }) => {
+export default function BenefitsModal({ visible, onClose }) {
+  const benefits = [
+    {
+      title: "Discover Local Gems",
+      description: "Find and book the best local restaurants in your area",
+    },
+    {
+      title: "Personalized For You",
+      description: "Get AI-powered recommendations based on your preferences",
+    },
+    {
+      title: "Loyalty Program",
+      description: "Earn perks and unique dining opportunities",
+    },
+    {
+      title: "Content Creator Program",
+      description: "Receive early access to share your food reviews and unlock exclusive benefits",
+    },
+  ];
+
   return (
     <Modal
-      visible={visible}
+      animationType="slide"
       transparent={true}
-      animationType="fade"
+      visible={visible}
       onRequestClose={onClose}
     >
       <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.modalOverlay}>
+        <View style={styles.centeredView}>
           <TouchableWithoutFeedback>
-            <View style={styles.modalContent}>
-              <Text style={styles.benefitsModalTitle}>Why Join Flavorly?</Text>
-              
-              <View style={styles.benefitItem}>
-                <MaterialIcons name="restaurant" size={24} color="#9B2915" />
-                <View style={styles.benefitTextContainer}>
-                  <Text style={styles.benefitTitle}>Discover Local Gems</Text>
-                  <Text style={styles.benefitDescription}>Find and book the best local restaurants in your area</Text>
-                </View>
+            <View style={styles.modalView}>
+              <View style={styles.header}>
+                <Text style={styles.headerText}>Why Join Flavorly?</Text>
+                <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                  <Feather name="x" size={24} color="#1A1110" />
+                </TouchableOpacity>
               </View>
 
-              <View style={styles.benefitItem}>
-                <MaterialIcons name="star" size={24} color="#E9B44C" />
-                <View style={styles.benefitTextContainer}>
-                  <Text style={styles.benefitTitle}>Personalized For You</Text>
-                  <Text style={styles.benefitDescription}>Get AI-powered recommendations based on your preferences</Text>
-                </View>
+              <View style={styles.scrollContainer}>
+                <ScrollView style={styles.scrollView}>
+                  {benefits.map((benefit, index) => (
+                    <View key={index} style={styles.benefitContainer}>
+                      <Text style={styles.benefitTitle}>{benefit.title}</Text>
+                      <Text style={styles.benefitDescription}>
+                        {benefit.description}
+                      </Text>
+                    </View>
+                  ))}
+                </ScrollView>
               </View>
-
-              <View style={styles.benefitItem}>
-                <MaterialIcons name="schedule" size={24} color="#9B2915" />
-                <View style={styles.benefitTextContainer}>
-                  <Text style={styles.benefitTitle}>Loyalty Program</Text>
-                  <Text style={styles.benefitDescription}>Earn perks and unique dining opportunities</Text>
-                </View>
-              </View>
-
-              <View style={styles.benefitItem}>
-                <MaterialIcons name="loyalty" size={24} color="#9B2915" />
-                <View style={styles.benefitTextContainer}>
-                  <Text style={styles.benefitTitle}>Content Creator Program</Text>
-                  <Text style={styles.benefitDescription}>Receive early access to share your food reviews and unlock exclusive benefits</Text>
-                </View>
-              </View>
-
-              <TouchableOpacity 
-                style={styles.closeBenefitsButton}
-                onPress={onClose}
-              >
-                <Text style={styles.closeBenefitsButtonText}>Got it!</Text>
-              </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
     </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  modalOverlay: {
+  centeredView: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
-  modalContent: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
+  modalView: {
+    backgroundColor: "#f6f3e7",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     padding: 20,
-    width: width - 40,
+    height: "80%",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: -2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
   },
-  benefitsModalTitle: {
-    fontSize: 24,
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 25,
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(0,0,0,0.1)",
+  },
+  headerText: {
+    fontSize: Math.min(24, width * 0.06),
     fontFamily: "sofiasans-bold",
     color: "#1A1110",
-    marginBottom: 20,
-    textAlign: "center",
   },
-  benefitItem: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  benefitTextContainer: {
-    marginLeft: 15,
+  scrollView: {
     flex: 1,
   },
+  scrollContainer: {
+    flex: 1,
+  },
+  benefitContainer: {
+    marginBottom: 30,
+    padding: 15,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 3,
+  },
   benefitTitle: {
-    fontSize: 18,
-    fontFamily: "sofiasans-medium",
-    color: "#1A1110",
-    marginBottom: 4,
+    fontSize: Math.min(18, width * 0.045),
+    fontFamily: "sofiasans-bold",
+    color: "#43B3AE",
+    marginBottom: 8,
   },
   benefitDescription: {
-    fontSize: 14,
-    fontFamily: "sofiasans-light",
+    fontSize: Math.min(16, width * 0.04),
+    fontFamily: "sofiasans-regular",
     color: "#1A1110",
     opacity: 0.8,
-    lineHeight: 20,
-  },
-  closeBenefitsButton: {
-    backgroundColor: "#43B3AE",
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-    alignSelf: "center",
-    marginTop: 10,
-  },
-  closeBenefitsButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontFamily: "sofiasans-medium",
   },
 });
-
-export default BenefitsModal;
