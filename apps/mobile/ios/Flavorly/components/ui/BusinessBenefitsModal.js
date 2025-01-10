@@ -17,29 +17,29 @@ const { width } = Dimensions.get("window");
 export default function BusinessBenefitsModal({ visible, onClose }) {
   const benefits = [
     {
-      title: "Lower Commission Fees",
+      title: "Drive More Bookings and Revenue",
       description:
-        "Save more with our competitive pricing model designed for local businesses.",
+        "Leverage AI-driven recommendations and hyper-local targeting to attract more diners to your establishment.",
     },
     {
-      title: "Simple Integration",
+      title: "Save on High Fees",
       description:
-        "Easy setup with popular POS systems like Toast, Clover, and more.",
+        "No hidden fees or high commissions—Flavorly offers affordable plans for businesses of all sizes.",
     },
     {
-      title: "Smart Analytics",
+      title: "Simple Setup, Powerful Tools",
       description:
-        "Access valuable insights about your customers and business performance.",
+        "Manage reservations, menus, and schedules effortlessly with user-friendly dashboards.",
     },
     {
-      title: "Local Focus",
+      title: "Build a Loyal Customer Base",
       description:
-        "Connect with local food enthusiasts and grow your community presence.",
+        "Reward diners with loyalty programs that encourage repeat visits and positive reviews.",
     },
     {
-      title: "Marketing Tools",
+      title: "Gain Insights to Grow Your Business",
       description:
-        "Promote your business with our built-in marketing and promotional tools.",
+        "Access analytics on customer trends, popular dishes, and booking patterns.",
     },
   ];
 
