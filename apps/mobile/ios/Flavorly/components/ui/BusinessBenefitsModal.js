@@ -61,16 +61,18 @@ export default function BusinessBenefitsModal({ visible, onClose }) {
                 </TouchableOpacity>
               </View>
 
-              <ScrollView style={styles.scrollView}>
-                {benefits.map((benefit, index) => (
-                  <View key={index} style={styles.benefitContainer}>
-                    <Text style={styles.benefitTitle}>{benefit.title}</Text>
-                    <Text style={styles.benefitDescription}>
-                      {benefit.description}
-                    </Text>
-                  </View>
-                ))}
-              </ScrollView>
+              <View style={styles.scrollContainer}>
+                <ScrollView style={styles.scrollView}>
+                  {benefits.map((benefit, index) => (
+                    <View key={index} style={styles.benefitContainer}>
+                      <Text style={styles.benefitTitle}>{benefit.title}</Text>
+                      <Text style={styles.benefitDescription}>
+                        {benefit.description}
+                      </Text>
+                    </View>
+                  ))}
+                </ScrollView>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -145,5 +147,8 @@ const styles = StyleSheet.create({
     fontFamily: "sofiasans-regular",
     color: "#1A1110",
     opacity: 0.8,
+  },
+  scrollContainer: {
+    flex: 1,
   },
 });
