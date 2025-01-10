@@ -17,19 +17,27 @@ export default function BenefitsModal({ visible, onClose }) {
   const benefits = [
     {
       title: "Discover Local Gems",
-      description: "Find and book the best local restaurants in your area",
+      description:
+        "Explore hidden culinary treasures and popular favorites near you.",
     },
     {
-      title: "Personalized For You",
-      description: "Get AI-powered recommendations based on your preferences",
+      title: "Personalized Recommendations",
+      description:
+        "Enjoy AI-powered dining suggestions tailored to your tastes and preferences.",
     },
     {
-      title: "Loyalty Program",
-      description: "Earn perks and unique dining opportunities",
+      title: "Effortless Reservations",
+      description: "Book your table quickly and securely, hassle-free.",
     },
     {
-      title: "Content Creator Program",
-      description: "Receive early access to share your food reviews and unlock exclusive benefits",
+      title: "Loyalty Rewards",
+      description:
+        "Earn points for dining and unlock exclusive perks and rewards.",
+    },
+    {
+      title: "Content Creator Perks",
+      description:
+        "Share your dining adventures and gain access to unique opportunities.",
     },
   ];
 
