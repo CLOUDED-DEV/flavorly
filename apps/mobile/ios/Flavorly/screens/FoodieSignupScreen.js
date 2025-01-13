@@ -17,6 +17,7 @@ import CTAButton from "../components/ui/CTAButton";
 import EmailInput from "../components/ui/EmailInput";
 import BenefitsModal from "../components/ui/BenefitsModal";
 import PlatformSelectionModal from "../components/ui/PlatformSelectionModal";
+import ConfirmationModal from "../components/ui/ConfirmationModal";
 import PlatformInputSection from "../components/ui/PlatformInputSection";
 const { width } = Dimensions.get("window");
 
@@ -30,6 +31,7 @@ export default function FoodieSignupScreen({ navigation }) {
   const [formError, setFormError] = useState("");
   const [showPlatformModal, setShowPlatformModal] = useState(false);
   const [showBenefitsModal, setShowBenefitsModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [iconsLoaded, setIconsLoaded] = useState(false);
 
@@ -200,13 +202,8 @@ export default function FoodieSignupScreen({ navigation }) {
                 setFormError("Please complete all required fields");
                 return;
               }
-              console.log("Foodie submit", {
-                email,
-                isContentCreator: toggleIsEnabled,
-                platforms: toggleIsEnabled
-                  ? platforms.filter((p) => p.platform && p.username)
-                  : [],
-              });
+              // Show confirmation modal after successful submission
+              setShowConfirmationModal(true);
             }}
             disabled={!isFormValid()}
           />
@@ -230,6 +227,12 @@ export default function FoodieSignupScreen({ navigation }) {
         <BenefitsModal
           visible={showBenefitsModal}
           onClose={() => setShowBenefitsModal(false)}
+        />
+
+        <ConfirmationModal
+          visible={showConfirmationModal}
+          onClose={() => setShowConfirmationModal(false)}
+          navigation={navigation}
         />
       </View>
     </TouchableWithoutFeedback>

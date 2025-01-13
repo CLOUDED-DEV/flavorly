@@ -16,6 +16,7 @@ import CTAButton from "../components/ui/CTAButton";
 import EmailInput from "../components/ui/EmailInput";
 import BusinessInput from "../components/ui/BusinessInput";
 import BusinessBenefitsModal from "../components/ui/BusinessBenefitsModal";
+import ConfirmationModal from "../components/ui/ConfirmationModal";
 
 const { width } = Dimensions.get("window");
 
@@ -46,6 +47,7 @@ export default function BusinessSignupScreen({ navigation }) {
   const [posSystemError, setPosSystemError] = useState("");
   const [formError, setFormError] = useState("");
   const [showBenefitsModal, setShowBenefitsModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const validateBusinessName = (text) => {
     setBusinessName(text);
@@ -152,12 +154,8 @@ export default function BusinessSignupScreen({ navigation }) {
                 setFormError("Please complete all required fields");
                 return;
               }
-              console.log("Business submit", {
-                businessName,
-                email,
-                businessType,
-                posSystem,
-              });
+              // Show confirmation modal after successful submission
+              setShowConfirmationModal(true);
             }}
             disabled={!isFormValid()}
           />
@@ -173,6 +171,12 @@ export default function BusinessSignupScreen({ navigation }) {
         <BusinessBenefitsModal
           visible={showBenefitsModal}
           onClose={() => setShowBenefitsModal(false)}
+        />
+
+        <ConfirmationModal
+          visible={showConfirmationModal}
+          onClose={() => setShowConfirmationModal(false)}
+          navigation={navigation}
         />
       </View>
     </TouchableWithoutFeedback>
