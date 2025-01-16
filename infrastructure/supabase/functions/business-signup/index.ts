@@ -5,7 +5,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
 import {config} from "https://deno.land/x/dotenv/mod.ts"
-import {sendConfirmationEmail} from "../email-verify/index.ts"
+import {sendConfirmationEmail} from "../email-verify-business/index.ts"
 
 interface BusinessSignupRequest {
   email: string

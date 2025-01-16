@@ -26,28 +26,29 @@ export async function sendConfirmationEmail({ email }: EmailData): Promise<Respo
     // Prepare email content
     const htmlContent = `
       <!DOCTYPE html>
-      <html>
+        <html>
         <head>
-          <meta charset="utf-8">
-          <title>Welcome to Flavorly Waitlist</title>
+            <meta charset="utf-8">
+            <title>Welcome to Flavorly Waitlist</title>
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-          <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
             <h1 style="color: #fe7f2d;">Welcome to Flavorly! 🎉</h1>
-            <p>Hi there!</p>
-            <p>Thank you for joining the Flavorly waitlist! We're excited to have you on board.</p>
-            <p>Flavorly is a modern dining platform designed to connect you with unique local experiences, from restaurants and food trucks to private chefs and pop-up events.</p>
-            <h2 style="color: #619b8a;">What's Next?</h2>
+            <p>Hello!</p>
+            <p>Thank you for joining the Flavorly waitlist as a valued business partner! We're thrilled to have you on this journey with us.</p>
+            <p>Flavorly is a modern dining platform that helps businesses like yours connect with customers in new and exciting ways—whether you're a restaurant, food truck, private chef, or pop-up venue.</p>
+            <h2 style="color: #619b8a;">What Does This Mean for Your Business?</h2>
             <ul>
-              <li>You'll be among the first to know when we launch</li>
-              <li>Get early access to our platform</li>
-              <li>Receive exclusive updates about our progress</li>
+                <li>Reach new customers who are eager to discover unique dining experiences</li>
+                <li>Streamline your operations with simple reservation tools</li>
+                <li>Promote your business and grow your brand through our platform</li>
             </ul>
-            <p>Stay tuned for more updates coming your way!</p>
+            <p>We’re hard at work putting the finishing touches on Flavorly, and as an early sign-up, you’ll receive exclusive updates and be among the first to access our tools and features.</p>
+            <p>Stay tuned for more updates coming your way soon!</p>
             <p>Best regards,<br>The Flavorly Team</p>
-          </div>
+            </div>
         </body>
-      </html>
+        </html>
     `;
 
     console.log("Attempting to send confirmation email to:", email);
