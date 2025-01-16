@@ -10,12 +10,14 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { supabase } from "../utils/supabase";
 import { Feather } from "@expo/vector-icons";
 import CTAButton from "../components/ui/CTAButton";
 import EmailInput from "../components/ui/EmailInput";
 import BusinessInput from "../components/ui/BusinessInput";
 import BusinessBenefitsModal from "../components/ui/BusinessBenefitsModal";
+import ConfirmationModal from "../components/ui/ConfirmationModal";
 
 const { width } = Dimensions.get("window");
 
@@ -46,6 +48,8 @@ export default function BusinessSignupScreen({ navigation }) {
   const [posSystemError, setPosSystemError] = useState("");
   const [formError, setFormError] = useState("");
   const [showBenefitsModal, setShowBenefitsModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateBusinessName = (text) => {
     setBusinessName(text);
@@ -146,20 +150,43 @@ export default function BusinessSignupScreen({ navigation }) {
 
         <View style={styles.submitButtonContainer}>
           <CTAButton
-            title="Submit"
-            onPress={() => {
+            title={isSubmitting ? "Submitting..." : "Submit"}
+            onPress={async () => {
               if (!isFormValid()) {
                 setFormError("Please complete all required fields");
                 return;
               }
-              console.log("Business submit", {
-                businessName,
-                email,
-                businessType,
-                posSystem,
-              });
+
+              setIsSubmitting(true);
+              setFormError("");
+
+              try {
+                // Only allow "Restaurant" type for now as per the edge function
+                // if (businessType !== "Restaurant") {
+                //   throw new Error("Only Restaurant type is currently supported");
+                // }
+
+                const { data, error } = await supabase.functions.invoke('business-signup', {
+                  body: {
+                    email,
+                    business_name: businessName,
+                    business_type: businessType,
+                    pos_system: posSystem === "None" ? undefined : posSystem
+                  }
+                });
+
+                if (error) throw error;
+
+                // Show confirmation modal after successful submission
+                setShowConfirmationModal(true);
+              } catch (error) {
+                console.error('Submission error:', error);
+                setFormError(error.message || "Failed to submit. Please try again.");
+              } finally {
+                setIsSubmitting(false);
+              }
             }}
-            disabled={!isFormValid()}
+            disabled={!isFormValid() || isSubmitting}
           />
           <View style={styles.moreInformationContainer}>
             <TouchableOpacity onPress={() => setShowBenefitsModal(true)}>
@@ -173,6 +200,12 @@ export default function BusinessSignupScreen({ navigation }) {
         <BusinessBenefitsModal
           visible={showBenefitsModal}
           onClose={() => setShowBenefitsModal(false)}
+        />
+
+        <ConfirmationModal
+          visible={showConfirmationModal}
+          onClose={() => setShowConfirmationModal(false)}
+          navigation={navigation}
         />
       </View>
     </TouchableWithoutFeedback>
