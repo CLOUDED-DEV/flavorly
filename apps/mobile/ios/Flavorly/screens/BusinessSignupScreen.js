@@ -180,8 +180,10 @@ export default function BusinessSignupScreen({ navigation }) {
                 // Show confirmation modal after successful submission
                 setShowConfirmationModal(true);
               } catch (error) {
-                console.error('Submission error:', error);
-                setFormError(error.message || "Failed to submit. Please try again.");
+                // Log the full error object to see its structure
+                // console.error('Submission error:', JSON.stringify(error, null, 2));
+                setFormError("Failed to submit. Please make sure this email is not already registered.");
+
               } finally {
                 setIsSubmitting(false);
               }
