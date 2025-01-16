@@ -11,7 +11,6 @@ interface BusinessSignupRequest {
   email: string
   business_name: string
   business_type: 'Restaurant' | 'Food Truck' | 'Private Chef' | 'Pop-up'
-  city: string
   pos_system?: 'Square' | 'Toast' | 'Clover' | 'Other'
 }
 
@@ -77,16 +76,6 @@ Deno.serve(async (req) => {
       )
     }
 
-    if (!body.city?.trim()) {
-      return new Response(
-        JSON.stringify({ error: 'City is required' }),
-        { 
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-    }
-
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(body.email)) {
@@ -110,7 +99,6 @@ Deno.serve(async (req) => {
         email: body.email.toLowerCase().trim(),
         business_name: body.business_name.trim(),
         business_type: body.business_type,
-        city: body.city.trim(),
         pos_system: body.pos_system
       }])
       .select()
@@ -162,7 +150,6 @@ Deno.serve(async (req) => {
           email: business.email,
           business_name: business.business_name,
           business_type: business.business_type,
-          city: business.city,
           pos_system: business.pos_system,
           signup_date: business.signup_date
         }
@@ -211,7 +198,6 @@ Deno.serve(async (req) => {
       "email": "business@example.com",
       "business_name": "Food Truck Example",
       "business_type": "Food Truck",
-      "city": "Charlotte",
       "pos_system": "Square"
     }'
 

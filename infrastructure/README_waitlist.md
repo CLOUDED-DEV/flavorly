@@ -56,7 +56,6 @@ This document outlines the process for designing and developing the **Waitlist a
 | `email`            | `VARCHAR(255)`    | Business contact email.                         | UNIQUE, NOT NULL             |
 | `business_name`    | `VARCHAR(255)`    | Name of the business.                          | NOT NULL                     |
 | `business_type`    | `VARCHAR(50)`     | Type of restaurant.                           | CHECK IN ('Restaurant') /* Food Truck, Private Chef, Pop-up to be added in future phases */ |
-| `city`             | `VARCHAR(100)`    | City where business operates.                   | NOT NULL                     |
 | `pos_system`       | `VARCHAR(50)`     | Point of Sale system used.                     | CHECK IN ('Toast', 'Clover', 'Other') /* Square to be added in food truck phase */ |
 | `signup_date`      | `TIMESTAMP`       | Date and time of signup.                       | Default `NOW()`              |
 
@@ -65,7 +64,6 @@ This document outlines the process for designing and developing the **Waitlist a
 - `foodies.email`: For fast email lookups.
 - `foodies.creator_interest`: For querying content creators.
 - `businesses.email`: For fast email lookups.
-- `businesses.city`: For location-based queries.
 - `businesses.business_type`: For type-based filtering.
 
 ---
@@ -117,7 +115,6 @@ This document outlines the process for designing and developing the **Waitlist a
       "email": "business@example.com",
       "business_name": "Local Restaurant Example",
       "business_type": "Restaurant",
-      "city": "Charlotte",
       "pos_system": "Toast"
     }
     ```
@@ -131,7 +128,6 @@ This document outlines the process for designing and developing the **Waitlist a
         "email": "business@example.com",
         "business_name": "Local Restaurant Example",
         "business_type": "Restaurant",
-        "city": "Charlotte",
         "pos_system": "Toast",
         "signup_date": "2024-01-10T12:00:00Z"
       }

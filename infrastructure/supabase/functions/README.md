@@ -157,7 +157,6 @@ Handles business signups for the waitlist.
     email: string
     business_name: string
     business_type: 'Restaurant' /* Food Truck, Private Chef, Pop-up to be added in future phases */
-    city: string
     pos_system?: 'Toast' | 'Clover' | 'Other' /* Square to be added in food truck phase */
   }
   ```
@@ -172,7 +171,6 @@ Handles business signups for the waitlist.
         email: string
         business_name: string
         business_type: string
-        city: string
         pos_system?: string
         signup_date: string
       }
@@ -287,7 +285,6 @@ Handles sending confirmation emails to new waitlist signups.
        "email": "business@example.com",
        "business_name": "Local Restaurant Example",
        "business_type": "Restaurant",
-       "city": "Charlotte",
        "pos_system": "Toast"
      }'
    ```
