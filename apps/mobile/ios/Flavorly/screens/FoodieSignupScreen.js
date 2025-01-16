@@ -11,7 +11,7 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Feather } from "@expo/vector-icons";
 import CTAButton from "../components/ui/CTAButton";
 import EmailInput from "../components/ui/EmailInput";
@@ -19,6 +19,7 @@ import BenefitsModal from "../components/ui/BenefitsModal";
 import PlatformSelectionModal from "../components/ui/PlatformSelectionModal";
 import ConfirmationModal from "../components/ui/ConfirmationModal";
 import PlatformInputSection from "../components/ui/PlatformInputSection";
+import { supabase } from "../utils/supabase";
 const { width } = Dimensions.get("window");
 
 export default function FoodieSignupScreen({ navigation }) {
@@ -32,6 +33,7 @@ export default function FoodieSignupScreen({ navigation }) {
   const [showPlatformModal, setShowPlatformModal] = useState(false);
   const [showBenefitsModal, setShowBenefitsModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [iconsLoaded, setIconsLoaded] = useState(false);
 
@@ -196,16 +198,42 @@ export default function FoodieSignupScreen({ navigation }) {
         </ScrollView>
         <View style={styles.submitButtonContainer}>
           <CTAButton
-            title="Submit"
-            onPress={() => {
+            title={isSubmitting ? "Submitting..." : "Submit"}
+            onPress={async () => {
               if (!isFormValid()) {
                 setFormError("Please complete all required fields");
                 return;
               }
-              // Show confirmation modal after successful submission
-              setShowConfirmationModal(true);
+
+              setIsSubmitting(true);
+              setFormError("");
+
+              try {
+                const { data, error } = await supabase.functions.invoke('waitlist-signup', {
+                  body: {
+                    email,
+                    creator_interest: toggleIsEnabled,
+                    social_media: toggleIsEnabled ? platforms
+                      .filter(p => p.platform && p.username)
+                      .map(p => ({
+                        platform: p.platform,
+                        handle: p.username
+                      })) : undefined
+                  }
+                });
+
+                if (error) throw error;
+
+                // Show confirmation modal after successful submission
+                setShowConfirmationModal(true);
+              } catch (error) {
+                console.error('Submission error:', error);
+                setFormError(error.message || "Failed to submit. Please try again.");
+              } finally {
+                setIsSubmitting(false);
+              }
             }}
-            disabled={!isFormValid()}
+            disabled={!isFormValid() || isSubmitting}
           />
           <View style={styles.moreInformationContainer}>
             <TouchableOpacity onPress={() => setShowBenefitsModal(true)}>
