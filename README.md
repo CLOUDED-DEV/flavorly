@@ -57,12 +57,6 @@ Flavorly is rolling out in phases to ensure scalability and user adoption.
 ## 📢 Contributing
 We welcome contributions! If you're a developer, designer, or marketing strategist interested in shaping the future of dining tech, feel free to open a pull request or reach out.
 
-## 💡 Connect With Us
-Follow Flavorly on social media for updates and sneak peeks:
-- Instagram: [@flavorlyapp](https://www.instagram.com/flavorlyapp)
-- Twitter: [@flavorlyapp](https://twitter.com/flavorlyapp)
-- Website: [Coming Soon]
-
 ---
 
 _We believe in making dining a delightful experience for everyone. Join us as we revolutionize food discovery, reservations, and content creation!_ 🍽️🎉
